@@ -1,0 +1,16 @@
+{
+    "cases": {
+        "title": "",
+        "report_file": "",
+        "cases": {
+          "mdm_portal": [
+            "queries.test_activity_log"
+          ]
+        },
+        "receivers": [655351],
+        "group": [],
+        "monitor": 0,
+        "proid": 0,
+        "report_lang": "en"
+    }
+}

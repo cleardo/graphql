@@ -1,0 +1,56 @@
+# coding=utf-8
+from prome_lib.graphql_query import GraphqlQuery
+from prome_lib.operate_data import DataOperate
+from config import prome_config as con
+import unittest
+
+
+class UpdateTag(unittest.TestCase):
+    def setUp(self):
+        self.GQ = GraphqlQuery()
+        self.DO = DataOperate()
+
+    def test_updata_tag(self):
+        if con.AutoTestMode and con.AutoTestMode is False:
+
+            if con.test_updata_tag_times and len(con.test_updata_tag_times) != 0:
+                times = con.test_updata_tag_times
+            else:
+                times = 1
+
+            if con.test_updata_tag_tagname and len(con.test_updata_tag_tagname) != 0 and \
+                    con.test_updata_tag_tagGroup and len(con.test_updata_tag_tagGroup):
+                tagname = con.test_updata_tag_tagname
+                tagGroup = con.test_updata_tag_tagGroup
+            else:
+                tagname = self.DO.getTimeStr("QATest_create_tag") + str(i + 1)
+                tagGroup = "Not in AutoTest mode"
+        else:
+            times = 1
+            group = "QAtester-CreateTag"     # 关联create测试，不要改动！
+            tagidList = self.DO.getTagListByGroupName(group)
+            aimgroup = "QAtester-updateTag"
+
+        def updata_tag(i, tagid, tagGroup, tagname):
+            print "####################Testing %d updata Tag####################" % (i + 1)
+            print '\nupdata tag id is :', tagid
+            print '\nupdata tagid aim to :', tagGroup
+            print '\nupdata tag value is :', tagname
+            response, body = self.GQ.updateTag(tagid, tagGroup, tagname)
+
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(body['data']['updateTag']['group'], tagGroup)
+            self.assertEqual(body['data']['updateTag']['id'], tagid)
+            self.assertEqual(body['data']['updateTag']['value'], tagname)
+
+        for i in range(times):
+            if con.AutoTestMode and con.AutoTestMode is False:
+                updata_tag(i, tagid, tagGroup, tagname)
+            else:
+                tagid = tagidList[i]['tagid']
+                tagname = self.DO.getTimeStr("QATest_update_tag") + str(i)
+                updata_tag(i, tagid, aimgroup, tagname)
+
+
+if __name__ == '__main__':
+    unittest.main()

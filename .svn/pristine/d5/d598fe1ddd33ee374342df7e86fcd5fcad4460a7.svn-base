@@ -1,0 +1,47 @@
+# coding=utf-8
+class GetConfig(object):
+    def __init__(self):
+        self.base_login_host = ""
+        self.base_api_key = ""
+        self.base_account = ""
+        self.base_header = {}
+        self.DEBUG = False
+        self.proxies = {}
+        self.base_graphql_host = ""
+
+    def settingconfig(self, base_env, base_proxies, debug):
+        if base_env == "dev":
+            self.base_login_host = "https://devapi.prometheanproduct.com/identity/login"
+            self.base_api_key = "b0p31d5rm8ifd93132cfolmsa01yc60u4nd79btg"  # dev api
+            self.base_account = {
+                "email": "yy949177@nd.com.cn",
+                "password": "NetDragon91"
+            }
+            self.base_header = {
+                'x-api-key': self.base_api_key,
+                'content-type': "application/json",
+                'cache-control': "no-cache",
+            }
+            self.DEBUG = debug
+            self.proxies = base_proxies
+            self.base_graphql_host = "https://devapi.prometheanproduct.com/mdm-portal/graphql"
+
+        if base_env == "sandbox":
+            self.base_login_host = "https://sandboxapi.prometheanproduct.com/identity/login"
+            self.base_api_key = "l4mfs8uak1wglsxsyr4ada8h0d0179fwwlrgrzxg"
+            self.base_account = {
+                "email": "yy949177@nd.com.cn",
+                "password": "NetDragon91"
+            }
+            self.base_header = {
+                'x-api-key': self.base_api_key,
+                'content-type': "application/json",
+                'cache-control': "no-cache",
+            }
+            self.DEBUG = debug
+            self.proxies = base_proxies
+            self.base_graphql_host = "https://sandboxapi.prometheanproduct.com/mdm-portal/graphql"
+
+        return (self.base_login_host, self.base_account, self.base_api_key,
+                self.base_account, self.base_header, self.DEBUG, self.proxies,
+                self.base_graphql_host)

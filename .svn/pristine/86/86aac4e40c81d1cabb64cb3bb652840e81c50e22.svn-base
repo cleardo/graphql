@@ -1,0 +1,24 @@
+# PM PanelManagement测试脚本说明：
+
+## 运行方式：
+    1、在config文件夹中prome_config.py中确认环境参数
+    2、运行runner文件夹中runner.py文件
+
+### 文件夹说明
+
+## config 文件夹
+    prome_config: 配置环境参数
+    set_dev：设置环境模板
+
+## prome_lib文件夹
+    test_bat_enroll_unenroll: 测试重复enroll  unenroll,由于测试次数过多，且无使用graphql遂单独置放
+
+    Response: 获取认证token, 可右键直接运行获取token
+
+    graphql_query: graphql 查询语句分装及发送
+
+    operate_data: 将一些数据操作方法进行封装
+
+## testcases文件夹
+    mdm_potal文件夹:置放测试用例
+    testsuite: 设置测试集

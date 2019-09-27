@@ -1,0 +1,14 @@
+{
+    "case_assert": {
+        "title": "断言demo的测试用例",
+        "report_file": "others",
+        "cases": {
+            "others": [
+                "test_assert"
+            ]
+        },
+        "receivers": [],
+        "group":[]
+    }
+}
+

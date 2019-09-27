@@ -1,0 +1,2372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>PM Panel Management API Test</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="outline"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="detail"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "detail"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "outline"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1>PM Panel Management API Test</h1>
+<p class='attribute'><strong>Tester : </strong> QA</p>
+<p class='attribute'><strong>Start Time : </strong> 2019-09-24 12:48:09</p>
+<p class='attribute'><strong>Duration : </strong> 0:01:23.747550</p>
+<p class='attribute'><strong>Status : </strong> ALL 27 Pass 21 Failure 2 Error 4, Passing rate: 77.78%</p>
+
+<p class='description'>PM Panel Management API Test</p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>Summary{ 77.78% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>Failed{ 2 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>Passed{ 21 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>ALL{ 27 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_panels.Panels</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',1)" class="detail" id='c1'>Detail</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Panels</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>pass</button>
+    <div id='div_pt1_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>pass</button>
+    <div id='div_pt1_1' class="collapse in">
+    <pre>
+    
+pt1_1: #################### Testing 1  Panels ####################
+/usr/lib/python2.7/site-packages/urllib3/connectionpool.py:769: InsecureRequestWarning: Unverified HTTPS request is being made. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.org/en/latest/security.html
+  InsecureRequestWarning)
+
+*** request ***: 
+
+query Panels{
+    Panels(searchPanelsInput:{pageSize:1,offset:0}){
+        panels{
+            name,
+            serialNumber,
+            model,
+            mainboardFirmware,
+            updateAvailable,
+            otaVersion,
+            tagCount,
+            tags,
+            connectivity,
+            connectivityTimestamp,
+            otaStatus,
+            status
+        }
+        totalCount
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "Panels": {
+            "panels": [
+                {
+                    "connectivity": "disconnected", 
+                    "connectivityTimestamp": "1569221633246", 
+                    "mainboardFirmware": "3.2.0.68", 
+                    "model": "AP7_U65", 
+                    "name": "\u72b6\u6001online\u5417", 
+                    "otaStatus": null, 
+                    "otaVersion": "N/A", 
+                    "serialNumber": "AutoTest-MockSerial", 
+                    "status": "offline", 
+                    "tagCount": 3, 
+                    "tags": [
+                        "7a4497e0-0d1f-41e3-97ad-103670e1bc0a", 
+                        "199a07c9-3349-4c6f-895d-5a8bfe1b0829", 
+                        "c1e9d26e-140d-4c07-9712-abb051c566fe"
+                    ], 
+                    "updateAvailable": "false"
+                }
+            ], 
+            "totalCount": 303
+        }
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_panel.Panel</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c2',1)" class="detail" id='c2'>Detail</a></td>
+</tr>
+
+<tr id='pt2_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_Panel</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt2_1'>pass</button>
+    <div id='div_pt2_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt2_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt2_1'>pass</button>
+    <div id='div_pt2_1' class="collapse in">
+    <pre>
+    
+pt2_1: #################### Testing 1 Panel ####################
+
+Testing Get Panelinfo SN  is : xlySandbox111
+
+*** request ***: 
+
+query getPanelBySN{
+    Panel(serialNumber:"xlySandbox111"){
+        summary{
+        name
+        serialNumber
+        }
+        bezelFirmware
+        macAddress
+        ipAddress
+        tags{
+            group
+            groupId
+            values{
+                value
+                id
+            }
+        }
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "Panel": {
+            "bezelFirmware": null, 
+            "ipAddress": "", 
+            "macAddress": "00-23-5A-15-99-FF", 
+            "summary": {
+                "name": "enroll success at :2019-09-24 11:38:21", 
+                "serialNumber": "xlySandbox111"
+            }, 
+            "tags": [
+                {
+                    "group": "QAtestr-PanelTagTest", 
+                    "groupId": "4786a93aaa65eb2d767e3fa5228422c9", 
+                    "values": [
+                        {
+                            "id": "6719236f-2abf-4c8c-a123-a0549531a3db", 
+                            "value": "QATester_addPanelTags2019-09-24 11:04:09"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+} 
+
+
+Testing Get Panelinfo Name  is : enroll success at :2019-09-24 11:38:21
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_tags.Tags</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c3',1)" class="detail" id='c3'>Detail</a></td>
+</tr>
+
+<tr id='pt3_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_tags</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt3_1'>pass</button>
+    <div id='div_pt3_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt3_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt3_1'>pass</button>
+    <div id='div_pt3_1' class="collapse in">
+    <pre>
+    
+pt3_1: #################### Testing 1  Tags ####################
+
+*** request ***: 
+
+query{
+    Tags{
+    group,
+    values{
+        id,value}
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "Tags": [
+            {
+                "group": "QAtester-updateTag", 
+                "values": [
+                    {
+                        "id": "7a4497e0-0d1f-41e3-97ad-103670e1bc0a", 
+                        "value": "QATest_update_tag2019-09-24 20:39:510"
+                    }, 
+                    {
+                        "id": "f305dbb9-6ff6-456a-97b8-b14f3c558eb4", 
+                        "value": "QATest_update_tag2019-09-21 17:19:19"
+                    }, 
+                    {
+                        "id": "79c92bd8-d086-4156-9d15-a51327099a28", 
+                        "value": "QATest_update_tag2019-09-23 16:49:00"
+                    }, 
+                    {
+                        "id": "dd735a82-575f-403b-8a7d-c5c986972997", 
+                        "value": "QATest_update_tag2019-09-23 16:32:07"
+                    }, 
+                    {
+                        "id": "f2e68d00-90cd-4c53-825c-d34e3af7500f", 
+                        "value": "QATest_update_tag2019-09-24 11:03:56"
+                    }, 
+                    {
+                        "id": "f9f4f4ed-96eb-4c63-ac65-6ba5cdb8827d", 
+                        "value": "QATest_update_tag2019-09-23 10:56:43"
+                    }, 
+                    {
+                        "id": "31facb10-1f0e-4d64-ab84-ca4f5f94c817", 
+                        "value": "QATest_update_tag2019-09-24 11:38:34"
+                    }, 
+                    {
+                        "id": "bbfdf2f9-3404-4e4d-9396-d2c08b3bc79a", 
+                        "value": "QATest_update_tag2019-09-24 10:43:08"
+                    }, 
+                    {
+                        "id": "16ffe737-c343-4761-89d5-977dd2ce5ae0", 
+                        "value": "QATest_update_tag2019-09-23 16:49:03"
+                    }, 
+                    {
+                        "id": "987e9375-da0f-4bf3-bd45-d27ada779dc1", 
+                        "value": "QATest_update_tag2019-09-23 11:01:04"
+                    }, 
+                    {
+                        "id": "b7ee54c2-2f1d-442b-9e64-9830265b065e", 
+                        "value": "QATest_update_tag2019-09-23 15:32:45"
+                    }, 
+                    {
+                        "id": "332ebc13-0823-4883-af59-42156734f20d", 
+                        "value": "QATest_update_tag2019-09-23 16:38:57"
+                    }, 
+                    {
+                        "id": "f36bc1af-39ef-4c68-91c8-b0d3897a635c", 
+                        "value": "QATest_update_tag2019-09-23 15:33:49"
+                    }, 
+                    {
+                        "id": "2e5cb920-cf5d-42db-bd47-ba156ecf10ce", 
+                        "value": "QATest_update_tag2019-09-23 16:49:05"
+                    }, 
+                    {
+                        "id": "461fb0c1-6149-4ef2-b257-61478424507f", 
+                        "value": "QATest_update_tag2019-09-23 11:23:19"
+                    }, 
+                    {
+                        "id": "c1e9d26e-140d-4c07-9712-abb051c566fe", 
+                        "value": "QATest_update_tag2019-09-24 20:39:521"
+                    }, 
+                    {
+                        "id": "bd165a11-4a10-4955-9135-7c70b40b557a", 
+                        "value": "QATest_update_tag2019-09-23 15:33:52"
+                    }, 
+                    {
+                        "id": "0c97db44-d154-4283-bb8f-17540c708c71", 
+                        "value": "QATest_update_tag2019-09-24 10:43:09"
+                    }, 
+                    {
+                        "id": "c93d4960-2c2e-45d2-bbad-410bb9d2c09e", 
+                        "value": "QATest_update_tag2019-09-23 16:32:10"
+                    }, 
+                    {
+                        "id": "c19060cf-4ec7-4cf2-8997-c7a0f2b3d7e5", 
+                        "value": "QATest_update_tag2019-09-23 16:32:13"
+                    }, 
+                    {
+                        "id": "64a6ea8d-1daa-4550-9e8d-b65678dda935", 
+                        "value": "QATest_update_tag2019-09-23 16:39:00"
+                    }, 
+                    {
+                        "id": "b99e0d04-4b31-4c6a-8e98-0cd9755e75cf", 
+                        "value": "QATest_update_tag2019-09-24 10:43:11"
+                    }, 
+                    {
+                        "id": "ca6c60ec-568b-4914-ac63-5bc140471b1a", 
+                        "value": "QATest_update_tag2019-09-23 15:33:56"
+                    }
+                ]
+            }, 
+            {
+                "group": "QAtestr-PanelTagTest", 
+                "values": [
+                    {
+                        "id": "3ba8cc26-2da6-41e7-b51c-b4eb6a6dfc85", 
+                        "value": "QATester_addPanelTags2019-09-21 17:31:52"
+                    }, 
+                    {
+                        "id": "04f55ebd-497a-4b8b-9f13-9708c1c0fdf6", 
+                        "value": "QATester_addPanelTags2019-09-23 16:49:27"
+                    }, 
+                    {
+                        "id": "88af6b18-9a53-44d1-b078-3e0fe5506d4b", 
+                        "value": "QATester_addPanelTags2019-09-23 16:39:24"
+                    }, 
+                    {
+                        "id": "bb06caf6-94f3-49a4-88d9-115d5f4ad995", 
+                        "value": "QATester_addPanelTags2019-09-21 17:55:26"
+                    }, 
+                    {
+                        "id": "f4bf9c3c-29dd-4527-9bb2-56a25bdbfc0e", 
+                        "value": "QATester_addPanelTags2019-09-23 10:43:06"
+                    }, 
+                    {
+                        "id": "ba500089-b226-4a38-83c1-163a1498d149", 
+                        "value": "QATester_addPanelTags2019-09-24 10:43:24"
+                    }, 
+                    {
+                        "id": "515d5177-109a-4824-a88d-f4694b7f18b5", 
+                        "value": "QATester_addPanelTags2019-09-21 17:52:25"
+                    }, 
+                    {
+                        "id": "1fcd5237-a9ba-4c57-9fac-207941347ac3", 
+                        "value": "QATester_addPanelTags2019-09-21 17:50:59"
+                    }, 
+                    {
+                        "id": "5f04c149-b15c-4313-a6d6-c6786344caa2", 
+                        "value": "QATester_addPanelTags2019-09-21 17:52:29"
+                    }, 
+                    {
+                        "id": "6d77c3a0-9c7e-4ffb-a1e3-7fc47354c764", 
+                        "value": "QATester_addPanelTags2019-09-23 16:33:28"
+                    }, 
+                    {
+                        "id": "e78278bf-708f-4d9e-94c8-3d4d5cc8c06f", 
+                        "value": "QATester_addPanelTags2019-09-21 17:54:45"
+                    }, 
+                    {
+                        "id": "90ae8a4f-9f8e-4bac-b30f-53236589b378", 
+                        "value": "QATester_addPanelTags2019-09-23 16:49:31"
+                    }, 
+                    {
+                        "id": "6719236f-2abf-4c8c-a123-a0549531a3db", 
+                        "value": "QATester_addPanelTags2019-09-24 11:04:09"
+                    }, 
+                    {
+                        "id": "ec3f08be-54a7-4e1f-9aa0-3741aba2ce80", 
+                        "value": "QATester_addPanelTags2019-09-23 11:01:30"
+                    }, 
+                    {
+                        "id": "2565602f-fd58-4ae7-bed6-46c47a3424f6", 
+                        "value": "QATester_addPanelTags2019-09-24 11:38:46"
+                    }, 
+                    {
+                        "id": "aa88d70a-2342-4233-acfb-684b3213af05", 
+                        "value": "QATester_addPanelTags2019-09-23 16:39:28"
+                    }
+                ]
+            }, 
+            {
+                "group": "QAtester-CreateTag", 
+                "values": [
+                    {
+                        "id": "9fca487d-36f3-4402-b638-293518753eee", 
+                        "value": "QATest_create_tag2019-09-24 20:41:470"
+                    }
+                ]
+            }, 
+            {
+                "group": "aaa", 
+                "values": [
+                    {
+                        "id": "199a07c9-3349-4c6f-895d-5a8bfe1b0829", 
+                        "value": "5\u3001Add New Group"
+                    }, 
+                    {
+                        "id": "aec46ead-c729-406b-a40a-f6eaec0e0628", 
+                        "value": "25\u3001Yeni Grup Ekle"
+                    }, 
+                    {
+                        "id": "695cbe0e-f1c7-4942-ab38-f693e44f1375", 
+                        "value": "13\u3001Aggiungi nuovo gruppo"
+                    }, 
+                    {
+                        "id": "6d126b67-4188-4e1b-99e0-f024d1ae6b15", 
+                        "value": "16\u3001Prid\u0117ti nauj\u0105 grup\u0119"
+                    }, 
+                    {
+                        "id": "39ad47f0-74cc-4eb1-8f07-9b345dd53fce", 
+                        "value": "10\u3001Ajouter un nouveau groupe"
+                    }, 
+                    {
+                        "id": "562c7663-1743-4010-8106-659ff459e19a", 
+                        "value": "2\u3001P\u0159idat novou skupinu"
+                    }, 
+                    {
+                        "id": "67f78034-9b99-4ab5-aaf8-cb1fce2f20f6", 
+                        "value": "15\u3001\u0416\u0430\u04a3\u0430 \u0442\u043e\u043f \u049b\u043e\u0441\u0443"
+                    }, 
+                    {
+                        "id": "591db11b-413a-4e56-9b89-8b10112d4538", 
+                        "value": "1\u3001\u0625\u0636\u0627\u0641\u0629 \u0645\u062c\u0645\u0648\u0639\u0629 \u062c\u062f\u064a\u062f\u0629"
+                    }, 
+                    {
+                        "id": "f32a0be8-1419-4314-b5f3-191d34ca1aa0", 
+                        "value": "\u4e2d\u6587\u6807\u7b7e"
+                    }
+                ]
+            }, 
+            {
+                "group": "('QAtest',)", 
+                "values": [
+                    {
+                        "id": "6838b6f6-24c2-46a7-aa74-aceccbcac54a", 
+                        "value": "Test Add Panel Tags2019-09-20 15:44:49"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u662f\u7684fsdfds", 
+                "values": [
+                    {
+                        "id": "b0018eed-3871-4bea-b672-e5c3d9a323d6", 
+                        "value": "\u8d39\u6240\u5f97\u7a0e\u7684\u4e30\u76db\u7684"
+                    }
+                ]
+            }, 
+            {
+                "group": "same", 
+                "values": [
+                    {
+                        "id": "db1c1138-9534-4e77-b4ac-b467189ecd5d", 
+                        "value": "1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890122344444444444"
+                    }, 
+                    {
+                        "id": "a6891f76-b95a-4457-a61c-4fca4e77a3a3", 
+                        "value": "samebiaoqianrename"
+                    }
+                ]
+            }, 
+            {
+                "group": "GG", 
+                "values": [
+                    {
+                        "id": "2c581328-5253-4e72-9177-85fb651b561a", 
+                        "value": "g1"
+                    }
+                ]
+            }, 
+            {
+                "group": "QAtes-testing-updata-tag", 
+                "values": [
+                    {
+                        "id": "8e29f7b1-9165-41cb-96cf-abb001a25382", 
+                        "value": "updata-tag2019-09-20 14:56:52"
+                    }, 
+                    {
+                        "id": "495ccb3a-1b4b-4e8a-8958-6b7b56d43d83", 
+                        "value": "updata-tag2019-09-20 14:58:18"
+                    }
+                ]
+            }, 
+            {
+                "group": "QAtes-testing-create-tag", 
+                "values": [
+                    {
+                        "id": "65b78427-0eb5-423b-956a-2c1f5b8d454b", 
+                        "value": "QATest2019-09-19 18:01:0412"
+                    }, 
+                    {
+                        "id": "ba33df88-695b-46ff-b8a8-efbe36280924", 
+                        "value": "QATest_create_tag2019-09-20 14:29:073"
+                    }, 
+                    {
+                        "id": "fd92969c-f4b3-47a6-af60-a160a05d6904", 
+                        "value": "QATest2019-09-19 18:00:407"
+                    }, 
+                    {
+                        "id": "8d21391e-ea98-43d4-bd1f-3d7c8979a2e0", 
+                        "value": "QATest2019-09-19 18:01:0437"
+                    }, 
+                    {
+                        "id": "8e40cd46-f7fb-4ee5-8f5e-66e647921427", 
+                        "value": "QATest2019-09-19 18:01:0413"
+                    }, 
+                    {
+                        "id": "8abb5ca8-139e-432b-acef-5d4bf4fd5880", 
+                        "value": "QATest2019-09-19 17:59:392"
+                    }, 
+                    {
+                        "id": "ca12553e-ab59-4d87-897a-3b519b87df32", 
+                        "value": "QATest2019-09-19 18:00:405"
+                    }, 
+                    {
+                        "id": "59f40bd7-fda2-4d8b-9906-976746bf2801", 
+                        "value": "QATest2019-09-19 18:01:0435"
+                    }, 
+                    {
+                        "id": "2935ffd2-b009-4719-880e-acf22b6edf0c", 
+                        "value": "QATest2019-09-19 18:01:046"
+                    }, 
+                    {
+                        "id": "59c63508-ddf6-4e14-bd3b-a3cc30fb8dd2", 
+                        "value": "QATest2019-09-19 18:01:043"
+                    }, 
+                    {
+                        "id": "98804480-439d-4238-8b5a-720bf46afc41", 
+                        "value": "QATest2019-09-19 18:01:0427"
+                    }, 
+                    {
+                        "id": "fff552e7-0590-473f-aeb4-77254eea093a", 
+                        "value": "QATest2019-09-19 18:01:0449"
+                    }, 
+                    {
+                        "id": "38ae6542-93cb-4287-bb33-dfaeefda8441", 
+                        "value": "QATest2019-09-19 18:01:0447"
+                    }, 
+                    {
+                        "id": "fece2bf8-8d1c-456e-9d00-b9f022a0df2d", 
+                        "value": "QATest2019-09-19 17:59:3910"
+                    }, 
+                    {
+                        "id": "6d5dab75-7a68-485f-a79f-b83f7ad45909", 
+                        "value": "QATest2019-09-19 18:01:0411"
+                    }, 
+                    {
+                        "id": "0ed17d9e-aad3-400b-b02d-ff95b0cab767", 
+                        "value": "QATest2019-09-19 17:59:391"
+                    }, 
+                    {
+                        "id": "c755f34a-20b0-490b-bd30-f11c2aa357d1", 
+                        "value": "QATest2019-09-19 18:01:0421"
+                    }, 
+                    {
+                        "id": "171f62cd-09d6-454c-b644-adf5efa43ac3", 
+                        "value": "QATest2019-09-19 18:00:402"
+                    }, 
+                    {
+                        "id": "ece12ebe-40cf-470a-bcfb-af745c23f137", 
+                        "value": "QATest2019-09-19 17:59:395"
+                    }, 
+                    {
+                        "id": "33c4efe4-25e3-4518-b64e-2fda6549aedd", 
+                        "value": "QATest2019-09-19 18:01:0443"
+                    }, 
+                    {
+                        "id": "4b7e5d79-6c96-4ef1-bd10-74d20f1134dc", 
+                        "value": "QATest2019-09-19 18:01:041"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u6211\u559c\u6b22\u4ed6\u7684\u539f\u56e0\u8fd8\u56e0\u4e3a\u4ed6\u7684\u6563\u6587\u810d\u7099\u4eba\u53e3\uff0c\u6709\u7684\u6563\u6587\u91cd\u5728\u611f\u60c5\u7684\u6ce8\u5165\uff0c\u5982\uff1a\u300a\u80cc\u5f71\u300b\u300a\u513f\u5973\u300b\u300a\u6868\u58f0\u706f\u5f71\u91cc\u7684\u79e6\u6dee\u6cb3\u300b\uff0c\u60c5\u666f\u4ea4\u878d\u7684\u6885\u96e8\u6f6d\u7684\u9189\u4eba\u7684\u7eff\uff0c\u5a01\u5c3c\u65af\u7684\u5f02\u56fd\u60c5\u8c03\uff0c\u626c\u5dde\u57ce\u7684\u53e4\u6734\u4e0e\u98ce\u6d41\u2026\u2026\u8fd9\u4e9b\u90fd\u5f80\u5f80\u80fd\u62db\u4eba\u5165\u5185\uff0c\u7ed9\u4eba\u4ee5\u8eab\u4e34\u5176\u5883\u4e4b\u611f\uff1b\u8fd8\u6709\u6784\u601d\u7f1c\u5bc6\u7684\u300a\u8377\u5858\u6708\u8272\u300b\uff0c\u4f5c\u8005\u610f\u5728\u5199\u5fc3", 
+                "values": [
+                    {
+                        "id": "dcb7f870-e0e7-405e-b7dd-c8d9e7509ec2", 
+                        "value": "\u6211\u559c\u6b22\u4ed6\u7684\u539f\u56e0\u8fd8\u56e0\u4e3a\u4ed6\u7684\u6563\u6587\u810d\u7099\u4eba\u53e3\uff0c\u6709\u7684\u6563\u6587\u91cd\u5728\u611f\u60c5\u7684\u6ce8\u5165\uff0c\u5982\uff1a\u300a\u80cc\u5f71\u300b\u300a\u513f\u5973\u300b\u300a\u6868\u58f0\u706f\u5f71\u91cc\u7684\u79e6\u6dee\u6cb3\u300b\uff0c\u60c5\u666f\u4ea4\u878d\u7684\u6885\u96e8\u6f6d\u7684\u9189\u4eba\u7684\u7eff\uff0c\u5a01\u5c3c\u65af\u7684\u5f02\u56fd\u60c5\u8c03\uff0c\u626c\u5dde\u57ce\u7684\u53e4\u6734\u4e0e\u98ce\u6d41\u2026\u2026\u8fd9\u4e9b\u90fd\u5f80\u5f80\u80fd\u62db\u4eba\u5165\u5185\uff0c\u7ed9\u4eba\u4ee5\u8eab\u4e34\u5176\u5883\u4e4b\u611f\uff1b\u8fd8\u6709\u6784\u601d\u7f1c\u5bc6\u7684\u300a\u8377\u5858\u6708\u8272\u300b\uff0c\u4f5c\u8005\u610f\u5728\u5199\u5fc3"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u8be5\u6b7b\u7684\u98ce\u683c\u8bbd\u5fb7\u8bf5\u529f\u7684\u98ce\u683c\u662f\u6253\u53d1\u8be5\u7684\u98ce\u683c\u7684\u98ce\u683c\u7684\u98ce\u683c\u7684\u98ce\u683c\u7684\u98ce\u683c\u653e\u5927\u89c4\u8303\u7684\u9b3c\u5730\u65b9\u8be5\u6b7b\u7684\u98ce\u683c\u5730\u65b9\u7684\u53cc\u65b9\u5404\u7684\u53cd\u653b\u5012\u7b97\u522e\u5927\u98ce\u8be5\u7684\u98ce\u683c\u5730\u65b9\u4e2a\u68b5\u8482\u5188\u68b5\u8482\u5188\u7684\u53d1\u4e2a\u68b5\u8482\u5188\u653e\u5927\u521a\u53d1\u7684\u8be5\u7684\u98ce\u683c\u5730\u65b9\u521a\u53d1\u7684g", 
+                "values": [
+                    {
+                        "id": "ab79aaf5-bd47-49eb-bbef-02bca438f15b", 
+                        "value": "sdfsdfsdfsdf"
+                    }
+                ]
+            }, 
+            {
+                "group": "~!@#$%^&amp;*()(*&amp;^%$#|}{\":L?&gt;&lt;", 
+                "values": [
+                    {
+                        "id": "76854d76-9afc-4474-aaa4-adee2eb92ae5", 
+                        "value": "test0904"
+                    }
+                ]
+            }, 
+            {
+                "group": "QAtestr-DeletePanelTag", 
+                "values": [
+                    {
+                        "id": "25320b0e-9da6-41d4-8abc-675836801f61", 
+                        "value": "QATester_will_delete_Tags_of_Panel2019-09-24 11:04:05"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u5b66\u4e60\u666e\u901a\u8bdd\u7684\u4f53\u4f1a \u8bf4\u5230\u5b66\u4e60\u666e\u901a\u8bdd\u7684\u4f53\u4f1a\uff0c\u90a3\u53ef\u5c31\u591a\u4e86\u3002\u4f53\u4f1a\u4e5f\u5206\u597d\u574f\uff0c\u5148\u8bf4\u8bf4\u597d\u7684\u3002\u9996\u5148\uff0c\u6211\u672c\u8eab\u662f\u4e2a\u6c89\u9ed8\u5be1\u8a00\u7684\u4eba\uff0c\u4e0d\u7231\u8bf4\u8bdd\uff0c\u6709\u4e86\u666e\u901a\u8bdd\u8003\u8bd5\uff0c\u8bdd\u6bd4\u4ee5\u524d\u591a\u591a\u4e86\u3002\u5176\u6b21\uff0c\u8ba9\u6211\u611f\u53d7\u5230\u5b66\u4e60\u81ea\u5df1\u56fd\u5bb6\u7684\u5b98\u65b9\u8bed\u8a00\u7684\u5feb\u4e50\uff0c\u6bd5\u7adf\u5bf9\u4e8e\u4e00\u4e2a\u4ece\u5c0f\u5c31\u5728\u82f1\u8bed\u81f3\u4e0a\u7684\u73af\u5883\u4e0b\u5b66\u4e60\u7684\u6211\u6765\u8bf4\uff0c\u8fd9\u6b21\u8003\u8bd5\u662f", 
+                "values": [
+                    {
+                        "id": "34ea3b30-6029-4947-9297-09e84a3f1e81", 
+                        "value": "\u5b66\u4e60\u666e\u901a\u8bdd\u7684\u4f53\u4f1a \u8bf4\u5230\u5b66\u4e60\u666e\u901a\u8bdd\u7684\u4f53\u4f1a\uff0c\u90a3\u53ef\u5c31\u591a\u4e86\u3002\u4f53\u4f1a\u4e5f\u5206\u597d\u574f\uff0c\u5148\u8bf4\u8bf4\u597d\u7684\u3002\u9996\u5148\uff0c\u6211\u672c\u8eab\u662f\u4e2a\u6c89\u9ed8\u5be1\u8a00\u7684\u4eba\uff0c\u4e0d\u7231\u8bf4\u8bdd\uff0c\u6709\u4e86\u666e\u901a\u8bdd\u8003\u8bd5\uff0c\u8bdd\u6bd4\u4ee5\u524d\u591a\u591a\u4e86\u3002\u5176\u6b21\uff0c\u8ba9\u6211\u611f\u53d7\u5230\u5b66\u4e60\u81ea\u5df1\u56fd\u5bb6\u7684\u5b98\u65b9\u8bed\u8a00\u7684\u5feb\u4e50\uff0c\u6bd5\u7adf\u5bf9\u4e8e\u4e00\u4e2a\u4ece\u5c0f\u5c31\u5728\u82f1\u8bed\u81f3\u4e0a\u7684\u73af\u5883\u4e0b\u5b66\u4e60\u7684\u6211\u6765\u8bf4\uff0c\u8fd9\u6b21\u8003\u8bd5\u662f"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u6211\u7684\u4e1a\u4f59\u751f\u6d3b \u6211\u7684\u4e1a\u4f59\u751f\u6d3b\uff0c\u9664\u53bb\u4e00\u4e9b\u4f4e\u7ea7\u548c\u5eb8\u4fd7\u7684\uff0c\u5927\u6982\u53ea\u6709\u770b\u4e66\u3002\u6211\u559c\u6b22\u770b\u4e09\u7c7b\u4e66\uff0c\u53e4\u5178\u4e66\u7c4d\uff0c\u53f2\u4e66\uff0c\u5c0f\u8bf4\u3002\u5728\u53e4\u4e66\u4e2d\uff0c\u559c\u6b22\u8bd7\u8bcd\u548c\u5148\u79e6\u4ee5\u53ca\u5efa\u5b89\u65f6\u671f\u7684\u53e4\u6587\uff0c\u4ece\u4e2d\u53ef\u4ee5\u611f\u53d7\u5230\u8f9e\u7ae0\u4e4b\u4f18\u7f8e\uff0c\u601d\u60f3\u4e4b\u777f\u667a\uff0c\u5fd7\u6c14\u4e4b\u9ad8\u6d01\uff0c\u800c\u53f2\u4e66\uff0c\u53ef\u4ee5\u6ee1\u8db3\u6211\u5bf9\u524d\u4eba\u524d\u4e8b\u7684\u597d\u5947\u5fc3\uff0c\u4ece\u4e2d\u6316\u6398\u5230\u6211\u9700\u8981\u7684\u4e1c\u897f", 
+                "values": [
+                    {
+                        "id": "145febd0-d1fc-4d66-926f-0bc4839a7e3c", 
+                        "value": "\u6211\u7684\u4e1a\u4f59\u751f\u6d3b \u6211\u7684\u4e1a\u4f59\u751f\u6d3b\uff0c\u9664\u53bb\u4e00\u4e9b\u4f4e\u7ea7\u548c\u5eb8\u4fd7\u7684\uff0c\u5927\u6982\u53ea\u6709\u770b\u4e66\u3002\u6211\u559c\u6b22\u770b\u4e09\u7c7b\u4e66\uff0c\u53e4\u5178\u4e66\u7c4d\uff0c\u53f2\u4e66\uff0c\u5c0f\u8bf4\u3002\u5728\u53e4\u4e66\u4e2d\uff0c\u559c\u6b22\u8bd7\u8bcd\u548c\u5148\u79e6\u4ee5\u53ca\u5efa\u5b89\u65f6\u671f\u7684\u53e4\u6587\uff0c\u4ece\u4e2d\u53ef\u4ee5\u611f\u53d7\u5230\u8f9e\u7ae0\u4e4b\u4f18\u7f8e\uff0c\u601d\u60f3\u4e4b\u777f\u667a\uff0c\u5fd7\u6c14\u4e4b\u9ad8\u6d01\uff0c\u800c\u53f2\u4e66\uff0c\u53ef\u4ee5\u6ee1\u8db3\u6211\u5bf9\u524d\u4eba\u524d\u4e8b\u7684\u597d\u5947\u5fc3\uff0c\u4ece\u4e2d\u6316\u6398\u5230\u6211\u9700\u8981\u7684\u4e1c\u897f"
+                    }
+                ]
+            }, 
+            {
+                "group": "qa-test3", 
+                "values": [
+                    {
+                        "id": "57ef93f9-9170-478b-9273-9ae811fdb22d", 
+                        "value": "qa-value17"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u8c08\u8c08\u536b\u751f\u4e0e\u5065\u5eb7 \u536b\u751f\u548c\u5065\u5eb7\u5f80\u5f80\u662f\u8054\u7cfb\u5728\u4e00\u8d77\u7684\uff0c\u4e0d\u8bb2\u536b\u751f\u7684\u4eba\u672a\u5fc5\u4e0d\u5065\u5eb7\uff0c\u4f46\u662f\u4ed6\u4e0d\u5065\u5eb7\u7684\u6982\u7387\u8981\u6bd4\u8bb2\u536b\u751f\u7684\u5927\u591a\u4e86\u3002\u4e0d\u8bb2\u536b\u751f\u7684\u60c5\u51b5\u6709\u5f88\u591a\uff0c\u6bd4\u5982\u8bf4\u968f\u5730\u5410\u75f0\uff0c\u4e71\u6254\u5783\u573e\uff0c\u968f\u5730\u5927\u5c0f\u4fbf\u7b49\u7b49\uff0c\u8fd9\u4e9b\u4e0d\u536b\u751f\u7684\u574f\u4e60\u60ef\uff0c\u4e0d\u4ec5\u8ba9\u5176\u672c\u4eba\u53d7\u5230\u4e0d\u5065\u5eb7\u7684\u4fb5\u5bb3\uff0c\u8fd8\u8fde\u7d2f\u4ed6\u4eba\u8ddf\u7740\u906d\u6b83\u3002\u517b\u6210\u536b\u751f\u7684\u597d\u4e60", 
+                "values": [
+                    {
+                        "id": "aa215f9c-8fa9-4a0c-9b55-d4fb1ec796b7", 
+                        "value": "\u8c08\u8c08\u536b\u751f\u4e0e\u5065\u5eb7 \u536b\u751f\u548c\u5065\u5eb7\u5f80\u5f80\u662f\u8054\u7cfb\u5728\u4e00\u8d77\u7684\uff0c\u4e0d\u8bb2\u536b\u751f\u7684\u4eba\u672a\u5fc5\u4e0d\u5065\u5eb7\uff0c\u4f46\u662f\u4ed6\u4e0d\u5065\u5eb7\u7684\u6982\u7387\u8981\u6bd4\u8bb2\u536b\u751f\u7684\u5927\u591a\u4e86\u3002\u4e0d\u8bb2\u536b\u751f\u7684\u60c5\u51b5\u6709\u5f88\u591a\uff0c\u6bd4\u5982\u8bf4\u968f\u5730\u5410\u75f0\uff0c\u4e71\u6254\u5783\u573e\uff0c\u968f\u5730\u5927\u5c0f\u4fbf\u7b49\u7b49\uff0c\u8fd9\u4e9b\u4e0d\u536b\u751f\u7684\u574f\u4e60\u60ef\uff0c\u4e0d\u4ec5\u8ba9\u5176\u672c\u4eba\u53d7\u5230\u4e0d\u5065\u5eb7\u7684\u4fb5\u5bb3\uff0c\u8fd8\u8fde\u7d2f\u4ed6\u4eba\u8ddf\u7740\u906d\u6b83\u3002\u517b\u6210\u536b\u751f\u7684\u597d\u4e60"
+                    }
+                ]
+            }, 
+            {
+                "group": "Tilf\u00f8j ny gruppe0905", 
+                "values": [
+                    {
+                        "id": "6ffb244b-6a24-420c-a780-fac74b4600b2", 
+                        "value": "Tilf\u00f8j0905"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u8c01\u80fd\u6bd4\u62116666666666666666666\uff1f", 
+                "values": [
+                    {
+                        "id": "65b9d6dd-62b4-4995-a072-01be692a04c1", 
+                        "value": "66666"
+                    }
+                ]
+            }, 
+            {
+                "group": "testnow551", 
+                "values": [
+                    {
+                        "id": "84a4b034-3051-4ec6-9cb9-d063aff0f510", 
+                        "value": "testnow551"
+                    }
+                ]
+            }, 
+            {
+                "group": "\u6279\u91cf\u521b\u5efa", 
+                "values": [
+                    {
+                        "id": "9d8f146f-8c8b-4a48-9266-87ede274af89", 
+                        "value": "\u6279\u91cf\u521b\u5efa\u8ddf\u5f00\u73a9\u7b11\u4e00\u6837\uff0c\u4f60\u4ee5\u4e3a4795639981133920129002464"
+                    }, 
+                    {
+                        "id": "e91f8143-6ceb-489a-92bb-2e9dd4cbd2d6", 
+                        "value": "\u6279\u91cf\u521b\u5efa\u8ddf\u5f00\u73a9\u7b11\u4e00\u6837\uff0c\u4f60\u4ee5\u4e3a47956399811339201290024673"
+                    }, 
+                    {
+                        "id": "610998d5-61a5-458b-b825-19979b123288", 
+                        "value": "\u6279\u91cf\u521b\u5efa\u8ddf\u5f00\u73a9\u7b11\u4e00\u6837\uff0c\u4f60\u4ee5\u4e3a47956399811339201290024691"
+                    }
+                ]
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_ota.Ota</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c4',1)" class="detail" id='c4'>Detail</a></td>
+</tr>
+
+<tr id='pt4_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_ota</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt4_1'>pass</button>
+    <div id='div_pt4_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt4_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt4_1'>pass</button>
+    <div id='div_pt4_1' class="collapse in">
+    <pre>
+    
+pt4_1: #################### Testing 1 Ota ####################
+
+*** request ***: 
+
+query{
+    Ota{
+        version
+        notes
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "Ota": null
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_activity_log.ActivityLogTest</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c5',1)" class="detail" id='c5'>Detail</a></td>
+</tr>
+
+<tr id='pt5_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_activitylogs</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt5_1'>pass</button>
+    <div id='div_pt5_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt5_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt5_1'>pass</button>
+    <div id='div_pt5_1' class="collapse in">
+    <pre>
+    
+pt5_1: #################### Testing 1  ActivityLog ####################
+
+Testing Get Log Panel SN  is : xlySandbox110
+
+*** request ***: 
+
+query {
+  ActivityLogs(searchActivityLog: {serialNumber:"xlySandbox110" , pageSize: 1 })
+  {
+    totalCount
+    logs{
+      createTime
+      user
+      panelName
+      eventDetail
+      event
+      organization
+      status
+      serialNumber
+    }
+  }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "ActivityLogs": {
+            "logs": [
+                {
+                    "createTime": "1569325137611", 
+                    "event": "updateDeviceAttr", 
+                    "eventDetail": "{\"organization\":{\"old\":\"Public\",\"new\":\"06b6390c-2ff0-37eb-91c3-bcf6ac84236f\"},\"orgId\":{\"old\":\"Public\",\"new\":\"06b6390c-2ff0-37eb-91c3-bcf6ac84236f\"}}", 
+                    "organization": "06b6390c-2ff0-37eb-91c3-bcf6ac84236f", 
+                    "panelName": "enroll success at :2019-09-24 11:38:54", 
+                    "serialNumber": "xlySandbox110", 
+                    "status": "200", 
+                    "user": "Yang Young"
+                }
+            ], 
+            "totalCount": 1
+        }
+    }
+} 
+
+
+Testing Get Log Panel Name  is : enroll success at :2019-09-24 11:38:54
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_modell_list.ModellList</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c6',1)" class="detail" id='c6'>Detail</a></td>
+</tr>
+
+<tr id='pt6_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_modell_list</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt6_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt6_1'>pass</button>
+    <div id='div_pt6_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt6_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt6_1'>pass</button>
+    <div id='div_pt6_1' class="collapse in">
+    <pre>
+    
+pt6_1: #################### Testing 1  Ota ####################
+
+*** request ***: 
+
+query ModelList{
+    ModelList
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "ModelList": [
+            "AP7_A86", 
+            "AP7_U86", 
+            "AP7_U65", 
+            "AP7_A65", 
+            "AP7_A75", 
+            "AP7_B70", 
+            "AP7_B75", 
+            "AP7_B86"
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_main_board_firmware_list.MainboardFirmwareList</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c7',1)" class="detail" id='c7'>Detail</a></td>
+</tr>
+
+<tr id='pt7_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_main_board_firmware_list</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt7_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt7_1'>pass</button>
+    <div id='div_pt7_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt7_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt7_1'>pass</button>
+    <div id='div_pt7_1' class="collapse in">
+    <pre>
+    
+pt7_1: ############ Testing 1  MainboardFirmwareList ############
+
+*** request ***: 
+
+query MainboardFirmwareList {
+  MainboardFirmwareList
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "MainboardFirmwareList": [
+            "3.1.1.7"
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_user_list.UserList</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c8',1)" class="detail" id='c8'>Detail</a></td>
+</tr>
+
+<tr id='pt8_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_user_list</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt8_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt8_1'>pass</button>
+    <div id='div_pt8_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt8_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt8_1'>pass</button>
+    <div id='div_pt8_1' class="collapse in">
+    <pre>
+    
+pt8_1: #################### Testing 1 UserList ####################
+
+*** request ***: 
+
+query {
+      UserList {
+        user
+        profileId
+      }
+    }
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "UserList": [
+            {
+                "profileId": "07e10173-8ca0-4aa3-994e-0b8f77b706ae", 
+                "user": "Yang Young"
+            }, 
+            {
+                "profileId": "18f9f06e-0e47-47e3-8a7d-0499874151ca", 
+                "user": "lnz \u010d\u017c\u009elian1"
+            }, 
+            {
+                "profileId": "3e228b48-f58f-48dc-b8c7-c0b6a9b3a8b8", 
+                "user": "Xiaoyong Zhou"
+            }, 
+            {
+                "profileId": "803b508f-e897-40ee-bd78-0286dbb7afe4", 
+                "user": "Joe Zhou"
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.queries.test_enroll_validation.EnrollValidation</td>
+    <td class="text-center">4</td>
+    <td class="text-center">4</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c9',4)" class="detail" id='c9'>Detail</a></td>
+</tr>
+
+<tr id='pt9_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_enrolled_panel</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt9_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt9_1'>pass</button>
+    <div id='div_pt9_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt9_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt9_1'>pass</button>
+    <div id='div_pt9_1' class="collapse in">
+    <pre>
+    
+pt9_1: #################### Testing 1  Enrolled Panel ####################
+
+Testing Enrolled Panel SN  is : xlySandbox110
+
+Testing Enrolled Panel Name  is : enroll success at :2019-09-24 11:38:54
+
+*** request ***: 
+
+query{
+    EnrollValidation(input: [{serialNumber: "xlySandbox110", panelName: "enroll success at :2019-09-24 11:38:54"}])
+    {
+    isValid,
+    error,
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "EnrollValidation": [
+            {
+                "error": "Panel already enrolled", 
+                "isValid": false
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt9_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_error_SN_and_name</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt9_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt9_2'>pass</button>
+    <div id='div_pt9_2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt9_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt9_2'>pass</button>
+    <div id='div_pt9_2' class="collapse in">
+    <pre>
+    
+pt9_2: ## Testing 1  SN and name not existed to device server ##
+
+Testing not existed Panel SN  is : 3241f3qwfsdaa1eaad
+
+Testing not existed Panel Name  is : vasrdcsaf
+
+*** request ***: 
+
+query{
+    EnrollValidation(input: [{serialNumber: "3241f3qwfsdaa1eaad", panelName: "vasrdcsaf"}])
+    {
+    isValid,
+    error,
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "EnrollValidation": [
+            {
+                "error": "Panel not found", 
+                "isValid": false
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt9_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_error_SN_and_true_name</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt9_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt9_3'>pass</button>
+    <div id='div_pt9_3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt9_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt9_3'>pass</button>
+    <div id='div_pt9_3' class="collapse in">
+    <pre>
+    
+pt9_3: ####### Testing 1  error SN and true name #######
+
+Testing error Panel SN  is : sadfjilkscnmsal12390jdsoifhj210h1nassd
+
+Testing true Panel Name  is : enroll success at :2019-09-23 16:49:47
+
+*** request ***: 
+
+query{
+    EnrollValidation(input: [{serialNumber: "sadfjilkscnmsal12390jdsoifhj210h1nassd", panelName: "enroll success at :2019-09-23 16:49:47"}])
+    {
+    isValid,
+    error,
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "EnrollValidation": [
+            {
+                "error": "Panel not found", 
+                "isValid": false
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt9_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_existed_device_server_SN</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt9_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt9_4'>pass</button>
+    <div id='div_pt9_4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt9_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt9_4'>pass</button>
+    <div id='div_pt9_4' class="collapse in">
+    <pre>
+    
+pt9_4: 
+####### Testing 1 enroll_validation_existed_SN #######
+ 
+Not enroll Panel SN is : xlySandbox110
+
+*** request ***: 
+
+query{
+    EnrollValidation(input: [{serialNumber: "xlySandbox110", panelName: "2019-09-24 12:48:40"}])
+    {
+    isValid,
+    error,
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "EnrollValidation": [
+            {
+                "error": null, 
+                "isValid": true
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_update_panel_name.UpdatePanelName</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c10',1)" class="detail" id='c10'>Detail</a></td>
+</tr>
+
+<tr id='pt10_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_update_panel_name</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt10_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt10_1'>pass</button>
+    <div id='div_pt10_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt10_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt10_1'>pass</button>
+    <div id='div_pt10_1' class="collapse in">
+    <pre>
+    
+pt10_1: ########## Testing 1  Update Panel Name ##########
+
+updata serialNumber is : xlySandbox105
+
+updata name is : QATest_updatePanelName2019-09-24 12:48:45
+
+*** request ***: 
+
+mutation{
+    updatePanelName(updatePanelNameRequest:{serialNumber:"xlySandbox105",name:"QATest_updatePanelName2019-09-24 12:48:45"}){
+        name
+        serialNumber
+        model
+        mainboardFirmware
+        updateAvailable
+        tagCount
+        tags
+    }
+}
+            
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "updatePanelName": {
+            "mainboardFirmware": null, 
+            "model": null, 
+            "name": "QATest_updatePanelName2019-09-24 12:48:45", 
+            "serialNumber": "xlySandbox105", 
+            "tagCount": 0, 
+            "tags": null, 
+            "updateAvailable": "false"
+        }
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_create_tag.CreateTag</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c11',1)" class="detail" id='c11'>Detail</a></td>
+</tr>
+
+<tr id='pt11_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_create_tag</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt11_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt11_1'>pass</button>
+    <div id='div_pt11_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt11_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt11_1'>pass</button>
+    <div id='div_pt11_1' class="collapse in">
+    <pre>
+    
+pt11_1: ####################Testing 1 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:480
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:480") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "77ca7d04-e38b-4fb5-a36f-005977ddc4e3", 
+            "value": "QATest_create_tag2019-09-24 12:48:480"
+        }
+    }
+} 
+
+####################Testing 2 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:481
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:481") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "5cae657f-07e3-4fe8-b041-f2b0ec3a43b7", 
+            "value": "QATest_create_tag2019-09-24 12:48:481"
+        }
+    }
+} 
+
+####################Testing 3 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:482
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:482") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "986ed673-a8df-473f-b62d-bd822be8a9c5", 
+            "value": "QATest_create_tag2019-09-24 12:48:482"
+        }
+    }
+} 
+
+####################Testing 4 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:493
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:493") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "43bd5e6b-7232-465d-9ddc-80dcd2a5cb9f", 
+            "value": "QATest_create_tag2019-09-24 12:48:493"
+        }
+    }
+} 
+
+####################Testing 5 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:494
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:494") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "4eba460b-cc09-44e2-9694-8db93d1fc8b2", 
+            "value": "QATest_create_tag2019-09-24 12:48:494"
+        }
+    }
+} 
+
+####################Testing 6 Create Tag####################
+
+create tag name  is : QATest_create_tag2019-09-24 12:48:495
+
+add tag group is : QAtester-CreateTag
+
+*** request ***: 
+
+mutation createTag {
+    createTag(group: "QAtester-CreateTag", value:"QATest_create_tag2019-09-24 12:48:495") {
+        id
+        value
+        group
+    }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "createTag": {
+            "group": "QAtester-CreateTag", 
+            "id": "09d94601-5247-47a6-9add-e1a3f428a051", 
+            "value": "QATest_create_tag2019-09-24 12:48:495"
+        }
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_update_tag.UpdateTag</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c12',1)" class="detail" id='c12'>Detail</a></td>
+</tr>
+
+<tr id='pt12_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_updata_tag</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt12_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt12_1'>pass</button>
+    <div id='div_pt12_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt12_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt12_1'>pass</button>
+    <div id='div_pt12_1' class="collapse in">
+    <pre>
+    
+pt12_1: ####################Testing 1 updata Tag####################
+
+updata tag id is : 9fca487d-36f3-4402-b638-293518753eee
+
+updata tagid aim to : QAtester-updateTag
+
+updata tag value is : QATest_update_tag2019-09-24 12:48:520
+
+*** request ***: 
+
+mutation {
+    updateTag(id:"9fca487d-36f3-4402-b638-293518753eee", group:"QAtester-updateTag", value:"QATest_update_tag2019-09-24 12:48:520") {
+        id,group,value
+    }
+}
+            
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "updateTag": {
+            "group": "QAtester-updateTag", 
+            "id": "9fca487d-36f3-4402-b638-293518753eee", 
+            "value": "QATest_update_tag2019-09-24 12:48:520"
+        }
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>testcases.mdm_portal.mutations.test_delete_tag.DeleteTag</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c13',1)" class="detail" id='c13'>Detail</a></td>
+</tr>
+
+<tr id='ft13_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_delete_tag</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft13_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft13_1'>error</button>
+    <div id='div_ft13_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft13_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft13_1'>error</button>
+    <div id='div_ft13_1' class="collapse in">
+    <pre>
+    
+ft13_1: Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/mdm_portal/mutations/test_delete_tag.py", line 36, in test_delete_tag
+    tagList = self.DO.getTagListByGroupNameAndTagIndex(group)
+AttributeError: 'DataOperate' object has no attribute 'getTagListByGroupNameAndTagIndex'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_execute_ota.TestExecuteOta</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c14',1)" class="detail" id='c14'>Detail</a></td>
+</tr>
+
+<tr id='pt14_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_execute_ota</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt14_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt14_1'>pass</button>
+    <div id='div_pt14_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt14_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt14_1'>pass</button>
+    <div id='div_pt14_1' class="collapse in">
+    <pre>
+    
+pt14_1: ####################Testing 1 Execute Ota####################
+
+Testing Execute Ota SN  is : xlySandbox111
+
+Testing Execute Ota Name  is : enroll success at :2019-09-24 11:38:21
+
+*** request ***: 
+
+mutation {
+   executeOta(serialNumberList:"xlySandbox111")
+}
+               
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "executeOta": "success"
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_add_panel_tags.AddPanelTags</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c15',1)" class="detail" id='c15'>Detail</a></td>
+</tr>
+
+<tr id='pt15_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_add_panel_tags</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt15_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt15_1'>pass</button>
+    <div id='div_pt15_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt15_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt15_1'>pass</button>
+    <div id='div_pt15_1' class="collapse in">
+    <pre>
+    
+pt15_1: ####################Testing 1 Delete Panel Tags####################
+
+Delete Tags Panel SN  is : xlySandbox105
+
+Delete Tags Panel Name is : QATest_updatePanelName2019-09-24 12:48:45
+
+Delete Tags  is : d85d3844-fce5-4d9f-bb2b-6d8ac55d2f07
+
+*** request ***: 
+
+mutation{
+ deletePanelTags(deletePanelTagsRequest:{serialNumber:"xlySandbox105",tagId:"d85d3844-fce5-4d9f-bb2b-6d8ac55d2f07"})
+}
+                   
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "deletePanelTags": "success"
+    }
+} 
+
+####################Testing 2 Delete Panel Tags####################
+
+Delete Tags Panel SN  is : xlySandbox110
+
+Delete Tags Panel Name is : enroll success at :2019-09-24 12:48:41
+
+Delete Tags  is : 82a4ea8a-3aff-4dea-af70-aa908aa0e249
+
+*** request ***: 
+
+mutation{
+ deletePanelTags(deletePanelTagsRequest:{serialNumber:"xlySandbox110",tagId:"82a4ea8a-3aff-4dea-af70-aa908aa0e249"})
+}
+                   
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "deletePanelTags": "success"
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_update_panel_tags.UpdatePanelTags</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c16',1)" class="detail" id='c16'>Detail</a></td>
+</tr>
+
+<tr id='pt16_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_update_panel_tags</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt16_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt16_1'>pass</button>
+    <div id='div_pt16_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt16_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt16_1'>pass</button>
+    <div id='div_pt16_1' class="collapse in">
+    <pre>
+    
+pt16_1: ####################Testing 1 Update Panel Tags####################
+
+Add Panel SN  is : xlySandbox111
+
+Add Panel Name is : enroll success at :2019-09-24 11:38:21
+
+Add Tags  is : 835f7e63-bd59-4ed6-ab5e-e12444dfb27d
+
+*** request ***: 
+
+mutation{
+ updatePanelTags(updatePanelTagsRequest:{serialNumber:"xlySandbox111",tagId:"835f7e63-bd59-4ed6-ab5e-e12444dfb27d"})
+}
+                   
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "updatePanelTags": "success"
+    }
+} 
+
+####################Testing 2 Update Panel Tags####################
+
+Add Panel SN  is : xlySandbox110
+
+Add Panel Name is : enroll success at :2019-09-24 12:48:41
+
+Add Tags  is : 7747d239-0f5d-4a09-9695-84c995534692
+
+*** request ***: 
+
+mutation{
+ updatePanelTags(updatePanelTagsRequest:{serialNumber:"xlySandbox110",tagId:"7747d239-0f5d-4a09-9695-84c995534692"})
+}
+                   
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "updatePanelTags": "success"
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_delete_panel_tags.DeletePanelTags</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c17',1)" class="detail" id='c17'>Detail</a></td>
+</tr>
+
+<tr id='pt17_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_delete_panel_tags</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt17_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt17_1'>pass</button>
+    <div id='div_pt17_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt17_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt17_1'>pass</button>
+    <div id='div_pt17_1' class="collapse in">
+    <pre>
+    
+pt17_1: ####################Testing 1 Delete Tag####################
+
+delete tagid is : 25320b0e-9da6-41d4-8abc-675836801f61
+
+*** request ***: 
+
+mutation deleteTagById{
+    deleteTag(id:"25320b0e-9da6-41d4-8abc-675836801f61"){
+        id,group,value
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "deleteTag": {
+            "group": "QAtestr-DeletePanelTag", 
+            "id": "25320b0e-9da6-41d4-8abc-675836801f61", 
+            "value": "QATester_will_delete_Tags_of_Panel2019-09-24 11:04:05"
+        }
+    }
+} 
+
+
+delete tagid from : QAtestr-DeletePanelTag
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_execute_appInstall.ExecuteAppInstall</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c18',1)" class="detail" id='c18'>Detail</a></td>
+</tr>
+
+<tr id='pt18_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_executeAppInstall</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt18_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt18_1'>pass</button>
+    <div id='div_pt18_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt18_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt18_1'>pass</button>
+    <div id='div_pt18_1' class="collapse in">
+    <pre>
+    
+pt18_1: ########## Testing 1 executeAppInstall ##########
+
+*** request ***: 
+
+mutation executeAppInstall {
+    executeAppInstall(appInstallRequest:{serialNumbers:"xlySandbox110",url:"https://alissl.ucdl.pp.uc.cn/fs08/2017/05/24/11/115_9fb5a9e9649d9330c952e2a5c3a10f49.apk"}) {
+        result
+    }
+}
+        
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "executeAppInstall": {
+            "result": "success"
+        }
+    }
+} 
+
+{u'data': {u'executeAppInstall': {u'result': u'success'}}}
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='passClass warning'>
+    <td>testcases.mdm_portal.mutations.test_enroll_and_unenroll.EnrollAndUnenroll</td>
+    <td class="text-center">1</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c19',1)" class="detail" id='c19'>Detail</a></td>
+</tr>
+
+<tr id='pt19_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_enroll_panel</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt19_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt19_1'>pass</button>
+    <div id='div_pt19_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt19_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt19_1'>pass</button>
+    <div id='div_pt19_1' class="collapse in">
+    <pre>
+    
+pt19_1: 
+####################Testing 1 unenroll####################
+
+unenroll Panel SN is : xlySandbox111
+
+*** request ***: 
+
+mutation unenroll {
+  unenroll(
+    serialNumbers: "xlySandbox111"
+  ) {
+    serialNumber
+    unenrolled
+    error
+  }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "unenroll": [
+            {
+                "error": null, 
+                "serialNumber": "xlySandbox111", 
+                "unenrolled": true
+            }
+        ]
+    }
+} 
+
+
+####################Testing 1 enroll####################
+ 
+enroll Panel SN is : xlySandbox111
+ 
+enroll Panel Name is : enroll success at :2019-09-24 12:49:12
+
+*** request ***: 
+
+mutation enroll {
+  enroll(input: [{ serialNumber: "xlySandbox111", panelName: "enroll success at :2019-09-24 12:49:12" }]) {
+    serialNumber
+    panelName
+    error
+    enrolled
+  }
+}
+                
+
+*** status code ***:  200
+
+*** response ***: 
+{
+    "data": {
+        "enroll": [
+            {
+                "enrolled": true, 
+                "error": null, 
+                "panelName": "enroll success at :2019-09-24 12:49:12", 
+                "serialNumber": "xlySandbox111"
+            }
+        ]
+    }
+} 
+
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>testcases.configuration.queries.test_configuration_list.ConfigurationList</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c20',1)" class="detail" id='c20'>Detail</a></td>
+</tr>
+
+<tr id='ft20_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_configurationList</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft20_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft20_1'>fail</button>
+    <div id='div_ft20_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft20_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft20_1'>fail</button>
+    <div id='div_ft20_1' class="collapse in">
+    <pre>
+    
+ft20_1: #################### Testing 1  configurationList ####################
+
+*** request ***: 
+
+query configurationList{
+configurationList(input:{pageNumber:1,pageSize:1}){
+        configurations{
+            configurationId
+            name
+            description
+            orgId
+            createBy
+            createTime
+            updateTime
+            appliedPanels
+            failedInstalls
+        }
+        total
+    }
+}
+
+
+*** status code ***:  500
+
+*** response ***: 
+{
+    "message": null
+} 
+
+Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/queries/test_configuration_list.py", line 30, in test_configurationList
+    configurationList(i, pageNumber, pageSize)
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/queries/test_configuration_list.py", line 27, in configurationList
+    self.assertEqual(r.status_code, 200)
+AssertionError: 500 != 200
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>testcases.configuration.queries.test_configuration_detail.ConfigurationDetail</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c21',1)" class="detail" id='c21'>Detail</a></td>
+</tr>
+
+<tr id='ft21_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_configuration_detail</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft21_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft21_1'>error</button>
+    <div id='div_ft21_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft21_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft21_1'>error</button>
+    <div id='div_ft21_1' class="collapse in">
+    <pre>
+    
+ft21_1: Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/queries/test_configuration_detail.py", line 29, in test_configuration_detail
+    configurationIdList = self.DO.getRandomConfigurationIdList(times)
+  File "/home/linzh/workspace/prome/graphql/prome_lib/operate_data.py", line 155, in getRandomConfigurationIdList
+    total = b['data']['configurationList']['total']
+KeyError: 'data'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='failClass warning'>
+    <td>testcases.configuration.mutations.test_create_configuration.CreateConfiguration</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c22',1)" class="detail" id='c22'>Detail</a></td>
+</tr>
+
+<tr id='ft22_1' class='none'>
+    <td class='failCase'><div class='testcase'>test_create_configuration</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft22_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft22_1'>fail</button>
+    <div id='div_ft22_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft22_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft22_1'>fail</button>
+    <div id='div_ft22_1' class="collapse in">
+    <pre>
+    
+ft22_1: ############# Testing 1  Create Configuration #############
+Crate configuration name is  QATester_create_configuration
+
+*** request ***: 
+
+mutation{
+createConfiguration(input:{name:"QATester_create_configuration", description:"QATester_create_configuration2019-09-24 12:49:22"}){
+        configurationId
+        name
+        description
+        createBy
+        orgId
+        createTime
+        updateTime
+        status
+        appliedPanels
+        failedInstalls
+        }
+}
+        
+
+*** status code ***:  500
+
+*** response ***: 
+{
+    "message": null
+} 
+
+Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/mutations/test_create_configuration.py", line 31, in test_create_configuration
+    create_configuration(i, name, description)
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/mutations/test_create_configuration.py", line 28, in create_configuration
+    self.assertEqual(r.status_code, 200)
+AssertionError: 500 != 200
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>testcases.configuration.mutations.test_update_configuration.UpdateConfiguration</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c23',1)" class="detail" id='c23'>Detail</a></td>
+</tr>
+
+<tr id='ft23_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_update_configuration</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft23_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft23_1'>error</button>
+    <div id='div_ft23_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft23_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft23_1'>error</button>
+    <div id='div_ft23_1' class="collapse in">
+    <pre>
+    
+ft23_1: Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/mutations/test_update_configuration.py", line 19, in test_update_configuration
+    ConfigurationIdList = self.DO.getConfigurationIdListByName(getName)
+  File "/home/linzh/workspace/prome/graphql/prome_lib/operate_data.py", line 167, in getConfigurationIdListByName
+    total = b['data']['configurationList']['total']
+KeyError: 'data'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>testcases.configuration.mutations.test_delete_configuration.DeleteConfiguration</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">0</td>
+    <td class="text-center">1</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c24',1)" class="detail" id='c24'>Detail</a></td>
+</tr>
+
+<tr id='ft24_1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_delete_configuration</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft24_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft24_1'>error</button>
+    <div id='div_ft24_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft24_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft24_1'>error</button>
+    <div id='div_ft24_1' class="collapse in">
+    <pre>
+    
+ft24_1: Traceback (most recent call last):
+  File "/home/linzh/workspace/prome/graphql/testcases/configuration/mutations/test_delete_configuration.py", line 19, in test_delete_configuration
+    ConfigurationIdList = self.DO.getConfigurationIdListByName(getName)
+  File "/home/linzh/workspace/prome/graphql/prome_lib/operate_data.py", line 167, in getConfigurationIdListByName
+    total = b['data']['configurationList']['total']
+KeyError: 'data'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>Total</td>
+    <td>27</td>
+    <td>21</td>
+    <td>2</td>
+    <td>4</td>
+    <td>Passing rate: 77.78%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>

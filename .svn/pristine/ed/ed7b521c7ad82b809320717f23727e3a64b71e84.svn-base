@@ -1,0 +1,30 @@
+# coding=utf-8
+# from nd.rest import unittest
+from prome_lib.graphql_query import GraphqlQuery
+from prome_lib.operate_data import DataOperate
+from config import prome_config as con
+import unittest
+
+
+class DeletePanelTags(unittest.TestCase):
+
+    def setUp(self):
+        self.GQ = GraphqlQuery()
+        self.DO = DataOperate()
+
+    def test_delete_panel_tags(self):
+
+        times = 1
+        group = "QAtestr-DeletePanelTag"
+        tagid, tagName = self.DO.getTagidByGroupNameAndTagIndex(group)
+
+        def delete_tag(i):
+            print "####################Testing %d Delete Tag####################" % (i + 1)
+            print '\ndelete tagid is :', tagid
+            response, body = self.GQ.deleteTag(tagid)
+            print '\ndelete tagid from :', group
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(body['data']['deleteTag']['id'], tagid)
+
+        for i in range(times):
+            delete_tag(i)

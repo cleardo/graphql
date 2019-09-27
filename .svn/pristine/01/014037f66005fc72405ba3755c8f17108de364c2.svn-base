@@ -1,0 +1,29 @@
+from config.prome_config import *
+from config.set_dev import *
+import requests
+import json
+
+
+def get_response():
+    env = GetConfig()
+    env.settingconfig(base_env=base_env, base_proxies=base_proxies, debug=base_debug)
+    payload = json.dumps(env.base_account)
+    r = requests.post(env.base_login_host, data=payload, headers=env.base_header)
+    return r.text
+
+
+def get_token():
+    res = get_response()
+    res = json.loads(res)
+    token_value = res['AuthenticationResult']['IdToken']
+    token_value = "{\"Authorization\": \"Bearer " + token_value + "\"}"
+    return token_value
+
+
+def show_token():
+    token_value = get_token()
+    print token_value
+
+
+if __name__ == '__main__':
+    show_token()

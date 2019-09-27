@@ -1,0 +1,19 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import HTMLTestRunner
+import time
+from testcases.testsuite import suite
+from config import prome_config as con
+
+if __name__ == '__main__':
+    if con.HTMLreportPath and len(con.HTMLreportPath) != 0:
+            HTMLfilepath = con.HTMLreportPath
+    else:
+        HTMLfilepath = "./report"
+    prefix = "PM-API-Test-mdm-portal"
+    TimeStr = prefix + time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time())) + '.html'
+    filename = HTMLfilepath+TimeStr
+    fp = file(filename, 'wb')
+    runner = HTMLTestRunner.HTMLTestRunner(fp, title=u'PM Panel Management API Test',
+                                           description=u'PM Panel Management API Test')
+    runner.run(suite)
