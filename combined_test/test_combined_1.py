@@ -588,6 +588,7 @@ mutation{
 
         # Step3:
         def delete_configuration():
+            print "\n#### Setup 3: Delete Configuration by id5:%s####" % self.global_var['id5']
             r, b = self.GQ.deleteConfiguration(self.global_var['id5'])
             self.assertEqual(r.status_code, 200)
 
@@ -600,7 +601,7 @@ mutation{
 
         # Setp 5:
         def configuration_detail():
-            print "\n#### Setup 5: Get Configuration Detail by ID %s####" % self.global_var['id6']
+            print "\n#### Setup 5: Get Configuration Detail by ID %s####" % self.global_var['id5']
             query = """
     query configurationDetail{
         configurationDetail(configurationId: "%s"){
