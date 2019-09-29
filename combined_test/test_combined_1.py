@@ -620,7 +620,7 @@ mutation{
             response = self.GQ.send_query(query % self.global_var['id6'], api='configuration')
             body = json.loads(response.text)
             self.assertEqual(response.status_code, 200)
-            self.assertIsNone(body['data']['configurationDetail'])
+            self.assertEqual(body['data']['configurationDetail'], "success")
 
         create_configuration()
         deploy_configuration_id1()
