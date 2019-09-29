@@ -34,6 +34,6 @@ if __name__ == '__main__':
     }
     payload = """{"text":"<!here>Panel Management接口测试报告%s：http://54.183.7.44/%s"}""" % (TimeStr, TimeStr)
     print payload
-    # response = requests.post(hooks_url, headers=header, data=payload)
-    # r = json.dumps(response.text)
-    # print '\n*** response ***: \n', json.dumps(r, indent=4, sort_keys=True), '\n'
+    response = requests.post(hooks_url, headers=header, data=payload)
+    r = json.dumps(response.text)
+    print '\n*** response ***: \n', json.dumps(r, indent=4, sort_keys=True), '\n'
