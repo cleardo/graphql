@@ -522,9 +522,9 @@ mutation{
             self.assertEqual(r.status_code, 200)
 
         create_configuration()
-        deploy_configuration_id1()
-        delete_configuration()
-        get_deploy_config()
+        # deploy_configuration_id1()
+        # delete_configuration()
+        # get_deploy_config()
 
     def test8(self):
         print "\n---------------Combined Testcase 8---------------:"
