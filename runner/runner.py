@@ -27,11 +27,12 @@ if __name__ == '__main__':
     runner = HTMLTestRunner.HTMLTestRunner(fp, title=u'PM Panel Management API Test',
                                            description=u'PM Panel Management API Test')
     runner.run(suite)
+    
     hooks_url = "https://hooks.slack.com/services/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"
     header = {
         'content-type': "application/json"
     }
-    body = """{"text":"<!here>Panel Management接口测试报告%s：http://54.183.7.44/%s"}""" % (TimeStr, filename)
-    response = requests.post(hooks_url, header=header, body=body)
-    r = json.loads(response.text)
+    payload = """{"text":"<!here>Panel Management接口测试报告%s：http://54.183.7.44/%s"}""" % (TimeStr, filename)
+    response = requests.post(hooks_url, headers=header, data=payload)
+    r = json.dumps(response.text)
     print '\n*** response ***: \n', json.dumps(r, indent=4, sort_keys=True), '\n'
