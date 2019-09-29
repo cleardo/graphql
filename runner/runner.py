@@ -31,7 +31,7 @@ if __name__ == '__main__':
     header = {
         'content-type': "application/json"
     }
-    body = '{"text":"<!here>Panel Management接口测试报告%s：http://54.183.7.44/%s"}' % (TimeStr, filename)
+    body = """{"text":"<!here>Panel Management接口测试报告%s：http://54.183.7.44/%s"}""" % (TimeStr, filename)
     response = requests.post(hooks_url, header=header, body=body)
     r = json.loads(response.text)
     print '\n*** response ***: \n', json.dumps(r, indent=4, sort_keys=True), '\n'
