@@ -6,33 +6,30 @@ import unittest
 from config import prome_config as con
 
 
-class UpdateConfiguration(unittest.TestCase):
+class GetAppliedPanel(unittest.TestCase):
 
     def setUp(self):
         self.GQ = GraphqlQuery()
         self.DO = DataOperate()
 
-    def test_update_configuration(self):
+    def test_get_applied_panel(self):
 
-        times = 3
+        times = 1
         Description = "QATester_create_configuration"
         ConfigurationIdList = self.DO.getConfigurationIdListByDescription(Description)
-        name = "QATester_update_configuration"
 
-        def update_configuration(i, configurationId, name, description):
-            print "############# Testing %d  Update Configuration #############" % (i + 1)
-            print "Update configuration ConfigurationId is :\n", configurationId
-            print "\nUpdate configuration name is :\n", name
-            r, b = self.GQ.updateConfiguration(configurationId, name, description)
+        def get_applied_panel(i, configurationId):
+            print "#################### Testing %d  GetApplied Panel ####################" % (i + 1)
+            print "Get Applied Panel ID is ", configurationId
+            r, b = self.GQ.getAppliedPanel(configurationId)
 
             # --------------------断言 assert--------------------
             # 断言API正在运行  assertEqual API server is running
             self.assertEqual(r.status_code, 200)
 
         for i in range(times):
-            description = self.DO.getTimeStr("QATester_update_configuration")
             configurationId = ConfigurationIdList[i]
-            update_configuration(i, configurationId, name, description)
+            get_applied_panel(i, configurationId)
 
 
 if __name__ == '__main__':
