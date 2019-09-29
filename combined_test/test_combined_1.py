@@ -588,7 +588,7 @@ mutation{
 
         # Step3:
         def delete_configuration():
-            r, b = self.GQ.deleteConfiguration(self.global_var['id6'])
+            r, b = self.GQ.deleteConfiguration(self.global_var['id5'])
             self.assertEqual(r.status_code, 200)
 
         # Step 4:
@@ -618,9 +618,8 @@ mutation{
     """
             response = self.GQ.send_query(query % self.global_var['id6'], api='configuration')
             body = json.loads(response.text)
-            response_Id = body['data']['configurationDetail']['configurationId']
             self.assertEqual(response.status_code, 200)
-            self.assertEqual(response_Id, self.global_var['id6'])
+            self.assertIsNone(body['data']['configurationDetail'])
 
         create_configuration()
         deploy_configuration_id1()
