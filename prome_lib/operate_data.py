@@ -150,7 +150,7 @@ class DataOperate(object):
         else:
             return -1
 
-    def getRandomConfigurationIdList(self, pageSize=10, showprint=False):
+    def getRandomConfigurationIdList(self, pageSize=3, showprint=False):
 
         ConfigurationIdList = []
         r, b = self.GraphqlQuery.configurationList(1, 99, showprint=showprint)
