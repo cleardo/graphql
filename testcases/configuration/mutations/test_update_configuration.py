@@ -17,7 +17,7 @@ class UpdateConfiguration(unittest.TestCase):
         times = 3
         Description = "QATester_create_configuration"
         ConfigurationIdList = self.DO.getConfigurationIdListByDescription(Description)
-        name = "QATester_update_configuration"
+        description = "QATester_update_configuration"
 
         def update_configuration(i, configurationId, name, description):
             print "############# Testing %d  Update Configuration #############" % (i + 1)
@@ -30,7 +30,7 @@ class UpdateConfiguration(unittest.TestCase):
             self.assertEqual(r.status_code, 200)
 
         for i in range(times):
-            description = self.DO.getTimeStr("QATester_update_configuration")
+            name = self.DO.getTimeStr("QATester_update_configuration") + str(i)
             configurationId = ConfigurationIdList[i]
             update_configuration(i, configurationId, name, description)
 

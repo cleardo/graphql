@@ -150,10 +150,9 @@ class DataOperate(object):
         else:
             return -1
 
-    def getRandomConfigurationIdList(self, pageSize=3, showprint=False):
-
+    def getRandomConfigurationIdList(self, pageSize=10, showprint=False):
         ConfigurationIdList = []
-        r, b = self.GraphqlQuery.configurationList(1, 99, showprint=showprint)
+        r, b = self.GraphqlQuery.configurationList(1, 6666, showprint=showprint)
         total = b['data']['configurationList']['total']
         randomParam = self.getDeduplicationRandomList(1, total, pageSize)
         for i in range(pageSize):
@@ -165,7 +164,7 @@ class DataOperate(object):
     # 通过Description获取ConfigurationIdList
     def getConfigurationIdListByDescription(self, descriptions, showprint=False):
         ConfigurationIdList = []
-        r, b = self.GraphqlQuery.configurationList(1, 99, showprint=showprint)
+        r, b = self.GraphqlQuery.configurationList(1, 6666, showprint=showprint)
         total = b['data']['configurationList']['total']
         for i in range(total):
             description = b['data']['configurationList']['configurations'][i]['description']
@@ -176,15 +175,6 @@ class DataOperate(object):
             return ConfigurationIdList
         else:
             return warnings.warn(" The Name: %s not exist!") % names
-
-
-
-
-
-
-
-
-
 
 
 
