@@ -544,7 +544,7 @@ mutation{
         body = json.loads(response.text)
         return response, body
 
-    def getDeployConfig(self, serialNumber):
+    def getDeployConfig(self, serialNumber, showprint=True):
         query = """
 query{
   getDeployConfig(getDeployConfigRequest:{serialNumber:"%s"}){
@@ -569,7 +569,7 @@ query{
         body = json.loads(response.text)
         return response, body
 
-    def getAppliedPanel(self, configurationId):
+    def getAppliedPanel(self, configurationId, showprint=True):
         query = """
 query{
  getAppliedPanel(getDeployPanelRequest:{configurationId:"%s"}){

@@ -2,7 +2,7 @@
 
 # -*- coding: utf-8 -*-
 import sys
-sys.path.insert(0,'/home/linzh/workspace/prome/graphql')
+sys.path.insert(0, '/home/linzh/workspace/prome/graphql')
 import HTMLTestRunner
 import time
 from testcases.testsuite import suite
