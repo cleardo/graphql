@@ -332,13 +332,13 @@ mutation {
         body = json.loads(response.text)
         return response, body
 
-    def executeOta(self, SNList, delay=False):
+    def executeOta(self, SNList, delay=False, showprint=True):
         query = """
 mutation {
    executeOta(serialNumberList:"%s")
 }
                """
-        response = self.send_query(query % SNList)
+        response = self.send_query(query % SNList, showprint=showprint)
         body = json.loads(response.text)
         return response, body
 

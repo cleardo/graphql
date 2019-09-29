@@ -4,6 +4,7 @@ from prome_lib.operate_data import DataOperate
 from config import prome_config as con
 import unittest
 import random
+import time
 
 
 class ActivityLogTest(unittest.TestCase):
@@ -32,6 +33,8 @@ class ActivityLogTest(unittest.TestCase):
         def activitylogs(i, SN):
             print "#################### Testing %d  ActivityLog ####################" % (i + 1)
             print '\nTesting Get Log Panel SN  is :', SN
+            self.GQ.executeOta(SN, showprint=False)
+            time.sleep(2)
             r, b = self.GQ.activityLogs(SN, 1, 0)
             serialNumber = b['data']['ActivityLogs']['logs'][0]['serialNumber']
             name = b['data']['ActivityLogs']['logs'][0]['panelName']
