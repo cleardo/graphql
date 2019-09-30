@@ -24,7 +24,7 @@ from testcases.configuration.queries.test_configuration_detail import Configurat
 from testcases.configuration.mutations.test_create_configuration import CreateConfiguration
 from testcases.configuration.mutations.test_update_configuration import UpdateConfiguration
 from testcases.configuration.mutations.test_delete_configuration import DeleteConfiguration
-from testcases.combined_test import Combined1
+from combined_test.test_combined_1 import Combined1
 
 
 suite = unittest.TestSuite()
