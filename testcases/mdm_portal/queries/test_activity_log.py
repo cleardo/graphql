@@ -38,10 +38,8 @@ class ActivityLogTest(unittest.TestCase):
             r, b = self.GQ.activityLogs(SN, 1, 0)
             serialNumber = b['data']['ActivityLogs']['logs'][0]['serialNumber']
             name = b['data']['ActivityLogs']['logs'][0]['panelName']
-            status = b['data']['ActivityLogs']['logs'][0]['status']
             print '\nTesting Get Log Panel Name  is :', name
             self.assertEqual(r.status_code, 200)
-            self.assertEqual(status, "200")
             self.assertEqual(serialNumber, SN)
 
         for i in range(times):

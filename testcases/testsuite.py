@@ -24,7 +24,9 @@ from testcases.configuration.queries.test_configuration_detail import Configurat
 from testcases.configuration.mutations.test_create_configuration import CreateConfiguration
 from testcases.configuration.mutations.test_update_configuration import UpdateConfiguration
 from testcases.configuration.mutations.test_delete_configuration import DeleteConfiguration
+from testcases.configuration.mutations.Reapply import test_reapply
 from testcases.combined_test.test_combined_1 import Combined1
+from testcases.combined_test.test_reapply import Combined2
 
 
 suite = unittest.TestSuite()
@@ -55,6 +57,7 @@ suite.addTest(CreateConfiguration('test_create_configuration'))
 suite.addTest(ConfigurationDetail('test_configuration_detail'))
 suite.addTest(UpdateConfiguration('test_update_configuration'))
 suite.addTest(DeleteConfiguration('test_delete_configuration'))
+suite.addTest(Reapply('test_reapply'))
 suite.addTest(Combined1('test1'))
 suite.addTest(Combined1('test2'))
 suite.addTest(Combined1('test3'))
@@ -63,3 +66,4 @@ suite.addTest(Combined1('test5'))
 suite.addTest(Combined1('test6'))
 suite.addTest(Combined1('test7'))
 suite.addTest(Combined1('test8'))
+suite.addTest(Combined2('test1'))

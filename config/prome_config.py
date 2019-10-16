@@ -2,7 +2,7 @@
 
 # 基础环境设置
 # 设置Socket5 代理
-base_debug = False
+base_debug = True
 # Socket5代理地址
 base_proxies = {
         'http': 'http://127.0.0.1:1080',

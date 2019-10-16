@@ -31,6 +31,45 @@ class GetAppliedPanel(unittest.TestCase):
             configurationId = ConfigurationIdList[i]
             get_applied_panel(i, configurationId)
 
+    def test_not_applied_of_Panel(self):
+
+        # premise
+        name = self.DO.getTimeStr("QATest")
+        description = "QATester_create_configuration"
+        r, b = self.GQ.createConfiguration(name, description, showprint=False)
+        configurationId = b['data']['createConfiguration']['configurationId']
+
+        # test strat
+        print "#################### Testing  GetApplied Panel ####################"
+        print "Get Applied Panel ID is ", configurationId
+        r, b = self.GQ.getAppliedPanel(configurationId)
+
+        #  assert
+
+        self.assertEqual(r.status_code, 200)
+        self.assertIsNone(b['data']['getAppliedPanel']['panels'])
+
+    def test_applied_of_Panel(self):
+
+        # premise
+        name = self.DO.getTimeStr("QATest")
+        description = "QATester_create_configuration"
+        r, b = self.GQ.createConfiguration(name, description, showprint=False)
+        configurationId = b['data']['createConfiguration']['configurationId']
+        PanelList = self.DO.getRandomPanelSnAndNameList()
+        serialNumber = PanelList[0]['serialNumber']
+        self.GQ.deployConfiguration(serialNumber, configurationId)
+
+        # test strat
+        print "#################### Testing  GetApplied Panel ####################"
+        print "Get Applied Panel ID is ", configurationId
+        r, b = self.GQ.getAppliedPanel(configurationId)
+
+        #  assert
+
+        self.assertEqual(r.status_code, 200)
+        self.assertIsNone(b['data']['getAppliedPanel']['panels'])
+
 
 if __name__ == '__main__':
     unittest.main()

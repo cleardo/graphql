@@ -176,7 +176,18 @@ class DataOperate(object):
         else:
             return warnings.warn(" The Name: %s not exist!") % names
 
-
+    # 通过configurationList filters 模糊搜索获取configurationId
+    def getConfigurationIdListByName(self, name, showprint=False):
+        ConfigurationIdList = []
+        r, b = self.GraphqlQuery.configurationListFilters(name, showprint=showprint)
+        total = b['data']['configurationList']['total']
+        for i in range(total):
+            configurationId = b['data']['configurationList']['configurations'][i]['configurationId']
+            ConfigurationIdList.append(configurationId)
+        if len(ConfigurationIdList) != 0:
+            return ConfigurationIdList
+        else:
+            return warnings.warn(" The Name: %s not exist!") % names
 
 
 

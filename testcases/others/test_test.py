@@ -14,10 +14,9 @@ class DeleteConfiguration(unittest.TestCase):
 
     def test_delete_configuration(self):
 
-        # times = 2
-        # name = "QATester"
-        ConfigurationIdList = self.DO.getConfigurationIdListByName(name)
-        lenList = len(ConfigurationIdList)
+        times = 2
+        Description = "QATester_update_configuration"
+        ConfigurationIdList = self.DO.getConfigurationIdListByDescription(Description)
 
         def update_configuration(i, configurationId):
             print "############# Testing %d  Delete Configuration #############" % (i + 1)
@@ -28,7 +27,7 @@ class DeleteConfiguration(unittest.TestCase):
             # 断言API正在运行  assertEqual API server is running
             self.assertEqual(r.status_code, 200)
 
-        for i in range(lenList):
+        for i in range(len(ConfigurationIdList)):
             configurationId = ConfigurationIdList[i]
             update_configuration(i, configurationId)
 
