@@ -26,7 +26,7 @@ from testcases.configuration.mutations.test_update_configuration import UpdateCo
 from testcases.configuration.mutations.test_delete_configuration import DeleteConfiguration
 from testcases.configuration.mutations.Reapply import test_reapply
 from testcases.combined_test.test_combined_1 import Combined1
-from testcases.combined_test.test_reapply import Combined2
+from testcases.combined_test.test_redeploy import Combined2
 
 
 suite = unittest.TestSuite()
