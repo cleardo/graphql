@@ -14,7 +14,7 @@ class GetDeployConfig(unittest.TestCase):
 
     def test_get_deploy_config(self):
 
-        times = 3
+        times = 1
         PanelList = self.DO.getRandomPanelSnAndNameList(1)
 
         def get_deploy_config(i, serialNumber):

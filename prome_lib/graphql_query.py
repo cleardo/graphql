@@ -569,6 +569,21 @@ mutation{
         body = json.loads(response.text)
         return response, body
 
+    def deployConfiguration(self, configurationId, serialNumber, showprint=True):
+        query = """
+mutation
+{
+deployConfiguration(deployRequest:{
+serialNumbers:"%s",
+configurationId:"%s",
+isDelayed:true
+})
+}
+                    """
+        response = self.send_query(query % (serialNumber, configurationId), showprint=showprint, api='configuration')
+        body = json.loads(response.text)
+        return response, body
+
     def getDeployConfig(self, serialNumber, showprint=True):
         query = """
 query{

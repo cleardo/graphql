@@ -47,7 +47,7 @@ class GetAppliedPanel(unittest.TestCase):
         #  assert
 
         self.assertEqual(r.status_code, 200)
-        self.assertIsNone(b['data']['getAppliedPanel']['panels'])
+        self.assertEqual(b['data']['getAppliedPanel']['panels'], [])
 
     def test_applied_of_Panel(self):
 
