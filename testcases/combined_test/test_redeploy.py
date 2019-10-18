@@ -3,7 +3,7 @@
 from prome_lib.graphql_query import GraphqlQuery
 from prome_lib.operate_data import DataOperate
 import unittest
-import json
+import json, time
 from config import prome_config as con
 
 
@@ -100,6 +100,7 @@ configurationDetail(configurationId: "%s"){
             b = json.loads(r.text)
             self.assertEqual(b['data']['configurationDetail']['appliedPanels'], (i+1))
             self.assertEqual(r.status_code, 200)
+            time.sleep(2)
 
         # Start
         create_configuration()

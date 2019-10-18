@@ -29,7 +29,6 @@ def get_token(env):
     token_value = "{\"Authorization\": \"Bearer " + token_value + "\"}"
     return token_value
 
-
 def show_token():
     token_value = get_token(con.show_token)
     print token_value

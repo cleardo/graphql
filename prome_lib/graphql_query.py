@@ -444,6 +444,31 @@ configurationList(input:{pageNumber:%d,pageSize:%d}){
         body = json.loads(response.text)
         return response, body
 
+    def configurationListFilters(self, name, showprint=True):
+        query = """
+query configurationList{
+configurationList(input:{pageNumber:1,pageSize:9999,filters:{name:"%s"}}){
+        configurations{
+            configurationId
+            name
+            description
+            orgId
+            createBy
+            createTime
+            updateTime
+            appliedPanels
+            failedInstalls
+        }
+        total
+    }
+}
+    """
+
+        response = self.send_query(query % name, showprint=showprint,
+                                   api='configuration')
+        body = json.loads(response.text)
+        return response, body
+
     def configurationDetail(self, configurationId, showprint=True):
         query = """
 query configurationDetail{

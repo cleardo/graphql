@@ -28,7 +28,7 @@ class DeleteConfiguration(unittest.TestCase):
             # 断言API正在运行  assertEqual API server is running
             self.assertEqual(r.status_code, 200)
 
-        for i in range(lenList):
+        for i in range(lenList/2):
             configurationId = ConfigurationIdList[i]
             update_configuration(i, configurationId)
 
