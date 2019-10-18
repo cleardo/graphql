@@ -100,7 +100,7 @@ configurationDetail(configurationId: "%s"){
             b = json.loads(r.text)
             self.assertEqual(b['data']['configurationDetail']['appliedPanels'], (i+1))
             self.assertEqual(r.status_code, 200)
-            time.sleep(2)
+            time.sleep(5)
 
         # Start
         create_configuration()

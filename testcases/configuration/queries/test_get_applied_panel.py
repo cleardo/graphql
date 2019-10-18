@@ -58,6 +58,7 @@ class GetAppliedPanel(unittest.TestCase):
         configurationId = b['data']['createConfiguration']['configurationId']
         PanelList = self.DO.getRandomPanelSnAndNameList()
         serialNumber = PanelList[0]['serialNumber']
+        panelName = PanelList[0]['name']
         self.GQ.deployConfiguration(serialNumber, configurationId)
 
         # test strat
@@ -66,9 +67,9 @@ class GetAppliedPanel(unittest.TestCase):
         r, b = self.GQ.getAppliedPanel(configurationId)
 
         #  assert
-
         self.assertEqual(r.status_code, 200)
-        self.assertIsNone(b['data']['getAppliedPanel']['panels'])
+        self.assertEqual(b['data']['getAppliedPanel']['panels'][0]['panelName'], panelName)
+        self.assertEqual(b['data']['getAppliedPanel']['panels'][0]['serialNumber'], serialNumber)
 
 
 if __name__ == '__main__':

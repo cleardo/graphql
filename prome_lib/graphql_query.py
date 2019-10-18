@@ -41,7 +41,7 @@ class GraphqlQuery(object):
             token = Response.get_token(prome_config.mdm_portal_env)
             token = json.loads(token)
             proxies = env.proxies
-            headers = {}
+            headers = {"x-auth-organization-id": ""}
             # add token to headers
             headers.update(token)
             # 发送 mdm_portal 请求
@@ -72,7 +72,7 @@ class GraphqlQuery(object):
             token = Response.get_token(prome_config.configuration_env)
             token = json.loads(token)
             proxies = env.proxies
-            headers = {}
+            headers = {"x-auth-organization-id": ""}
             # add token to headers
             headers.update(token)
             # 发送 mdm_portal 请求
@@ -569,7 +569,7 @@ mutation{
         body = json.loads(response.text)
         return response, body
 
-    def deployConfiguration(self, configurationId, serialNumber, showprint=True):
+    def deployConfiguration(self, serialNumber, configurationId,  showprint=True):
         query = """
 mutation
 {
@@ -580,7 +580,7 @@ isDelayed:true
 })
 }
                     """
-        response = self.send_query(query % (serialNumber, configurationId), showprint=showprint, api='configuration')
+        response = self.send_query(query % (serialNumber, configurationId,), showprint=showprint, api='configuration')
         body = json.loads(response.text)
         return response, body
 
