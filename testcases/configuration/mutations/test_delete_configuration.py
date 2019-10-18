@@ -15,7 +15,7 @@ class DeleteConfiguration(unittest.TestCase):
     def test_delete_configuration(self):
 
         # times = 2
-        # name = "QATester"
+        name = "QATester"
         ConfigurationIdList = self.DO.getConfigurationIdListByName(name)
         lenList = len(ConfigurationIdList)
 
