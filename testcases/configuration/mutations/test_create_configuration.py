@@ -73,6 +73,92 @@ mutation{
 
         description_is_123()
 
+        def description_is_empty():
+            print "#### Test  configuration name is existed ####"
+            query = """
+mutation{
+  createConfiguration(input:{name:"%s",
+    description:""})
+  {
+    configurationId,
+    name,
+    description,
+  }
+}
+                            """
+            r = self.GQ.send_query(query % name, api='configuration')
+            b = json.loads(r.text)
+            self.assertEqual(b['data']['createConfiguration'], None)
+            self.assertIsNotNone(b['errors'])
+            self.assertEqual(r.status_code, 200)
+
+        description_is_empty()
+
+    def test_configurationId_name_is_true(self):
+        name = self.DO.getTimeStr("QAtester")
+        print "#### Test  configuration name is true ####"
+        print "Crate configuration name is ", name
+        query = """
+mutation{
+  createConfiguration(input:{name:"%s",
+    description:""})
+  {
+    configurationId,
+    name,
+    description,
+  }
+}
+    """
+        r = self.GQ.send_query(query % name, api='configuration')
+        b = json.loads(r.text)
+        self.assertEqual(b['data']['createConfiguration']['name'], name)
+        self.assertEqual(r.status_code, 200)
+
+        def description_is_123():
+            name = self.DO.getTimeStr("QAtester")
+            print "#### Test configuration name is true and description=123####"
+            query = """
+mutation{
+  createConfiguration(input:{name:"%s",
+    description:"123"})
+  {
+    configurationId,
+    name,
+    description,
+  }
+}
+                """
+            r = self.GQ.send_query(query % name, api='configuration')
+            b = json.loads(r.text)
+            self.assertEqual(b['data']['createConfiguration']['name'], name)
+            self.assertEqual(b['data']['createConfiguration']['description'], "123")
+            self.assertEqual(r.status_code, 200)
+
+        description_is_123()
+
+        def description_is_empty():
+            name = self.DO.getTimeStr("QAtester")
+            print "#### Test  configuration name is existed ####"
+            print "#### Test configuration name is true and description is empty####"
+
+            query = """
+mutation{
+  createConfiguration(input:{name:"%s",
+    description:""})
+  {
+    configurationId,
+    name,
+    description,
+  }
+}
+                            """
+            r = self.GQ.send_query(query % name, api='configuration')
+            b = json.loads(r.text)
+            self.assertEqual(b['data']['createConfiguration']['name'], name)
+            self.assertEqual(b['data']['createConfiguration']["description"], "")
+            self.assertEqual(r.status_code, 200)
+
+        description_is_empty()
 
 
 if __name__ == '__main__':
