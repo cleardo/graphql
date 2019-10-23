@@ -18,8 +18,9 @@ if __name__ == '__main__':
     if con.mdm_portal_env == "dev":
         prefix = "PM-Test-Dev"
     elif con.mdm_portal_env == "sandbox":
-
-	prefix = "PM-Test-Sadnbox"
+        prefix = "PM-Test-Sadnbox"
+    elif con.mdm_portal_env == "stage":
+        prefix = "PM-Test-Stage"
     TimeStr = prefix + time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time())) + '.html'
 
     filename = HTMLfilepath+TimeStr
