@@ -20,6 +20,13 @@ def get_response(env):
         payload = json.dumps(dev.account)
         r = requests.post(dev.login_host, data=payload, headers=dev.header)
         return r.text
+    # 获取stage环境token
+    elif env == "stage":
+        stage = GetConfig()
+        stage.settingconfig(env=env, proxies=con.base_proxies, debug=con.base_debug)
+        payload = json.dumps(stage.account)
+        r = requests.post(stage.login_host, data=payload, headers=stage.header)
+        return r.text
 
 
 def get_token(env):

@@ -16,3 +16,4 @@
 .svn/wc.db
 *.db
 .svn/wc.db
+.idea/graphql.iml

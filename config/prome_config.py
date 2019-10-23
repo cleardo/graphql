@@ -2,19 +2,19 @@
 
 # 基础环境设置
 # 设置Socket5 代理
-base_debug = False
+base_debug = True
 # Socket5代理地址
 base_proxies = {
         'http': 'http://127.0.0.1:1080',
         'https': 'http://127.0.0.1:1080'
 }
 
-# get_token = dev, sandbox
-show_token = "dev"
+# get_token = dev, sandbox, stage
+show_token = "stage"
 
 # env = dev, sandbox
-mdm_portal_env = "dev"
-configuration_env = "dev"
+mdm_portal_env = "stage"
+configuration_env = "stage"
 
 
 # 设置 HTML 报告存放路径
