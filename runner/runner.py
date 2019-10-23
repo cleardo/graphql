@@ -11,10 +11,9 @@ from testcases.testsuite import suite
 from config import prome_config as con
 
 if __name__ == '__main__':
-    if con.HTMLreportPath and len(con.HTMLreportPath) != 0:
-            HTMLfilepath = con.HTMLreportPath
-    else:
-        HTMLfilepath = "./report"
+    try:HTMLfilepath = con.HTMLreportPath
+    except: HTMLfilepath = "./report"
+    finally: None
     if con.mdm_portal_env == "dev":
         prefix = "PM-Test-Dev"
     elif con.mdm_portal_env == "sandbox":
