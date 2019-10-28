@@ -113,7 +113,7 @@ class DataOperate(object):
         return TimeStr
 
     # 随机获取指定数量的随机 SN和 name, Listlen为数量，
-    def getRandomPanelSnAndNameList(self, Listlen=5, showprint=False):
+    def getRandomPanelSnAndNameList(self, Listlen=2, showprint=False):
         """
 
         :param Listlen:

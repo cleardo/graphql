@@ -40,11 +40,12 @@ class GetConfig(object):
             self.DEBUG = debug
             self.proxies = proxies
             self.host = "https://sandboxapi.prometheanproduct.com"
+
         elif env == "stage":
             self.login_host = "https://stagingapi.mypromethean.com/identity/login"
             self.api_key = "m3r8nquap6mn44l93vyu0cf08qd9vd8169l68zfn"
             self.account = {
-                "email": "xiaoyong.zhou@prometheanworld.com",
+                "email": "xiaoyong.zhou@gmail.com",
                 "password": "ClassFlow2018"
             }
             self.header = {
@@ -55,6 +56,7 @@ class GetConfig(object):
             self.DEBUG = debug
             self.proxies = proxies
             self.host = "https://stagingapi.mypromethean.com"
+
         return (self.login_host, self.account, self.api_key,
                 self.account, self.header, self.DEBUG, self.proxies,
                 self.host)
