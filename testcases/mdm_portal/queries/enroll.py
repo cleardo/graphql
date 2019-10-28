@@ -6,6 +6,7 @@ import csv
 from data_struct import batch_enroll_data
 from graphql_query import mainclass
 
+
 # 批量注册
 class BatchEnroll(mainclass):
 

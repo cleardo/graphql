@@ -6,6 +6,7 @@ import csv
 from data_struct import batch_enroll_data
 from graphql_query import GraphqlQuery
 
+
 # 注册模块 EnrollModuel
 class EnrollModuel(GraphqlQuery):
 
