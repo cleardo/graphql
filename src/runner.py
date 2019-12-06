@@ -1,7 +1,7 @@
 # coding=utf-8
 import sys
 import os
-sys.path.insert(0, os.getcwd()[:-3])
+sys.path.insert(0, "/home/linzh/workspace/prome/graphql")
 
 from src.lib import HTMLTestRunner
 from src.lib.operateData import *
@@ -27,12 +27,13 @@ def runner():
     fp.close()
 
     # 发送提示
-    if sys.argv[1] == "sendreport":
-        hooks_url = "https://hooks.slack.com/services/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"
-        header = {'content-type': "application/json"}
-        payload = '{"text":"Panel Management接口测试报告：http://54.183.7.44/report/%s"}' % fileName
-        requests.post(hooks_url, headers=header, data=payload)
-    else:
+    try:
+        if sys.argv[1] == "sendreport":
+            hooks_url = "https://hooks.slack.com/services/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"
+            header = {'content-type': "application/json"}
+            payload = '{"text":"Panel Management接口测试报告：http://54.183.7.44/report/%s"}' % fileName
+            requests.post(hooks_url, headers=header, data=payload)
+    finally:
         pass
 
 # if __name__ == '__main__':
