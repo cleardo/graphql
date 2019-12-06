@@ -22,7 +22,8 @@ def runner():
     runner = HTMLTestRunner.HTMLTestRunner(fp, title=u'PM Panel Management API Test',
                                            description=u'PM Panel Management API Test')
     runner.run(suite)
-
+    fp.close()
+    
     # 发送提示
     if sys.argv[1] == "sendreport":
         hooks_url = "https://hooks.slack.com/services/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"
@@ -36,6 +37,5 @@ def runner():
 if __name__ == '__main__':
     import sys
     import os
-
-    sys.path.insert(0, os.getcwd())
+    sys.path.insert(0, os.getcwd()[:-3])
     runner()
