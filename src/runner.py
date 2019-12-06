@@ -1,8 +1,4 @@
 # coding=utf-8
-import sys
-import os
-sys.path.insert(0, "/home/linzh/workspace/prome/graphql")
-
 from src.lib import HTMLTestRunner
 from src.lib.operateData import *
 from src.setting.setting import *
@@ -35,8 +31,10 @@ def runner():
     finally:
         fp.close()
 
-# if __name__ == '__main__':
-#     import sys
-#     import os
-#     sys.path.insert(0, os.getcwd()[:-3])
-#     runner()
+
+if __name__ == '__main__':
+    import sys
+    import os
+
+    sys.path.insert(0, os.getcwd() + '/')
+    runner()
