@@ -8,4 +8,4 @@ PROXY = True
 PROXY_ADDRESS = {'http': 'http://127.0.0.1:1080'}
 
 # HTML报告存放路径
-HTML_REPORT_PATH = 'C:\\Users\\Administrator\\'
+HTML_REPORT_PATH = "/var/www/report/"
