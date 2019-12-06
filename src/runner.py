@@ -24,7 +24,6 @@ def runner():
     runner = HTMLTestRunner.HTMLTestRunner(fp, title=u'PM Panel Management API Test',
                                            description=u'PM Panel Management API Test')
     runner.run(suite)
-    fp.close()
 
     # 发送提示
     try:
@@ -34,7 +33,7 @@ def runner():
             payload = '{"text":"Panel Management接口测试报告：http://54.183.7.44/report/%s"}' % fileName
             requests.post(hooks_url, headers=header, data=payload)
     finally:
-        pass
+        fp.close()
 
 # if __name__ == '__main__':
 #     import sys
